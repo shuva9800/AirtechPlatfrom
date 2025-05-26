@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import HighlightText from "../component/core/Homepage/HighlightText";
 import CTAbutton from "../component/core/Homepage/Button";
 import frontvideo from "../assets/Images/banner.mp4"
+import CodeBlocks from "../component/core/Homepage/Codeblocks";
 export default function Home() {
   return (
     <div>
@@ -40,6 +41,36 @@ export default function Home() {
           loop>
             <source src={frontvideo}/>
           </video>
+        </div>
+        {/* Code Blocks */}
+        <div >
+          <CodeBlocks
+            position={" flex-row"}
+            heading={
+              <div className='text-4xl font-semibold'>
+                        Unlock Your
+                        <HighlightText text={"coding potential"}/>
+                        with our online courses
+                    </div>
+            }
+            subheading={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."}
+          ctabtn1={
+            {
+              btnText: "try it yourself",
+                        linkto: "/signup",
+                        active: true,
+            }
+          }
+          ctabtn2={
+            {
+              btnText: "Learn more",
+                        linkto: "/login",
+                        active: false,
+            }
+          }
+          codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</\na><ahref="three/">Three</a>\n/nav>`}
+          codeColor={"text-yellow-25"}
+          />
         </div>
       </div>
 
