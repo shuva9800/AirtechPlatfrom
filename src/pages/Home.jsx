@@ -45,7 +45,37 @@ export default function Home() {
         {/* Code Blocks */}
         <div >
           <CodeBlocks
-            position={" flex-row"}
+            position={" sm:flex-row flex-col "}
+            heading={
+              <div className='text-4xl font-semibold'>
+                        Unlock Your
+                        <HighlightText text={"coding potential"}/>
+                        with our online courses
+                    </div>
+            }
+            subheading={"Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."}
+          ctabtn1={
+            {
+              btnText: "try it yourself",
+                        linkto: "/signup",
+                        active: true,
+            }
+          }
+          ctabtn2={
+            {
+              btnText: "Learn more",
+                        linkto: "/login",
+                        active: false,
+            }
+          }
+          codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\nbody>\nh1><ahref="/">Header</a>\n/h1>\nnav><ahref="one/">One</a><ahref="two/">Two</\na><ahref="three/">Three</a>\n/nav>`}
+          codeColor={"text-yellow-25"}
+          />
+        </div>
+        {/* Code Blocks2 */}
+        <div >
+          <CodeBlocks
+            position={" sm:flex-row-reverse flex-col"}
             heading={
               <div className='text-4xl font-semibold'>
                         Unlock Your
