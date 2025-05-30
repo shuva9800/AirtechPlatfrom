@@ -26,7 +26,7 @@ export default function LearningLanguageSection() {
                 <img src={learningIname3} alt="learningImage3"  className="object-contain "/>
             </div>
       </div>
-      <div className="mt-8 ">
+      <div className="mt-8 mb-8">
         <CTAButton linkto={"/signup"} active={true} >Learn More</CTAButton>
       </div>
     </div>

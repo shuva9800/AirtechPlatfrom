@@ -1,6 +1,5 @@
 import React from 'react'
 import CTAButton from "./Button"
-import HighlightText from './HighlightText'
 import {FaArrowRight} from "react-icons/fa"
 import { TypeAnimation } from 'react-type-animation'
 
@@ -19,7 +18,7 @@ const CodeBlocks = ({
 
         <div className='flex gap-7 mt-7'>
             <CTAButton active={ctabtn1.active} linkto={ctabtn1.linkto}>
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-2 items-center '>
                     {ctabtn1.btnText}
                     <FaArrowRight/>
                 </div>

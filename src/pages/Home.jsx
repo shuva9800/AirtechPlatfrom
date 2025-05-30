@@ -8,6 +8,8 @@ import CodeBlocks from "../component/core/Homepage/Codeblocks";
 import TimelineSection from "../component/core/Homepage/TimelineSection";
 import Footer from "../component/common/Footer";
 import LearningLanguageSection from "../component/core/Homepage/LearningLanguageSection";
+import InstrctorSection from "../component/core/Homepage/InstrctorSection";
+import ExploreMore from "../component/core/Homepage/ExploreMore";
 export default function Home() {
   return (
     <div>
@@ -44,7 +46,7 @@ export default function Home() {
             <source src={frontvideo} />
           </video>
         </div>
-        {/* Code Blocks1 */}
+        {/* Code section 1 */}
         <div>
           <CodeBlocks
             position={" sm:flex-row flex-col "}
@@ -72,7 +74,7 @@ export default function Home() {
             codeColor={"text-yellow-25"}
           />
         </div>
-        {/* Code Blocks2 */}
+        {/* Code section 2 */}
         <div>
           <CodeBlocks
             position={" sm:flex-row-reverse flex-col"}
@@ -100,6 +102,8 @@ export default function Home() {
             codeColor={"text-yellow-25"}
           />
         </div>
+        {/* card section */}
+        <ExploreMore/>
       </div>
 
       {/* section 2 */}
@@ -147,6 +151,12 @@ export default function Home() {
         </div>
       </div>
       {/* section 3 */}
+
+      <div className="w-11/12 mt-9 mx-auto max-w-maxContent text-white flex flex-col items-center gap-8 justify-between">
+            <InstrctorSection/>
+            <h2 className="mt-8 text-4xl font-semibold text-center">Review from other Learner</h2>
+            {/* Review slider to be created */}
+      </div>
       {/* section 4 */}
       {/* section 5*/}
       <Footer/>
