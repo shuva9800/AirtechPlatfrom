@@ -1,62 +1,85 @@
-import React, { useState } from 'react'
-import {HomePageExplore} from "../../../data/homepage-explore"
-import HighlightText from './HighlightText'
+import React, { useState } from "react";
+import { HomePageExplore } from "../../../data/homepage-explore";
+import HighlightText from "./HighlightText";
+import CourseCard from "./CourseCard";
 
-const tagItems =[
-    "Free",
-    "New to coding",
-    "Most popular",
-    "Skills paths",
-    "Career paths"
-]
+const tabItems = [
+  "Free",
+  "New to coding",
+  "Most popular",
+  "Skills paths",
+  "Career paths",
+];
 
 export default function ExploreMore() {
-    const [currentTab, setcurrentTab]= useState(tagItems[0]);
-    const [carddetails, setcardDetails]= useState(HomePageExplore[0].courses);
-    console.log(carddetails)
-   function tabCangeHandler(index){
-    setcurrentTab(tagItems[index]);
-    setcardDetails(HomePageExplore[index].courses)
-   }
+  const [currentTab, setcurrentTab] = useState(tabItems[0]);
+  const [carddetails, setcardDetails] = useState(HomePageExplore[0].courses);
+  const [crrentCard, setCurrentCard] = useState(
+    HomePageExplore[0].courses.heading
+  );
+  console.log(carddetails);
+  function tabCangeHandler(index) {
+    setcurrentTab(tabItems[index]);
+    setcardDetails(HomePageExplore[index].courses);
+    setCurrentCard(HomePageExplore[index].courses[0].heading);
+  }
 
   return (
     <div>
-        <div className='flex flex-col items-center mx-auto'>
-            <div className='text-4xl font-semibold text-white'>
-                    Unlock the 
-                    <HighlightText text={"Power of Code"}/> 
-            </div>
-            <p className='text-richblack-500 '>Learn to Build Anything You Can Imagine</p>
-            {/* card section */}
-            <div className='flex flex-col gap-7 items-center '>
-            <div className='flex fleex-roe gap-6 px-5 rounded-lg bg-richblack-700 mt-5 py-3 '>
-                {
-                    tagItems.map((item,index)=>(
-                        <div key={index} onClick={()=>tabCangeHandler(index)}>{item}</div>
-                    )
-                    )
-                }
-            </div>
-
-            <div className='flex flex-row gap-5 items-center justify-center '>
-                {
-                    carddetails.map((value, index)=>(
-                        <div className='px-5 w-fit'>
-                            <h2 className='text-2xl text-richblack-200'>{value.heading}</h2>
-                            <p className='text-richblack-500 font-thin w-[70%] '>{value.description}</p>
-                            <div className='flex justify-between'>
-                                <div>{value.level}</div>
-                                <div>{value.lessionNumber}</div>
-                            </div>
-                        </div>
-                    )
-                    )
-
-                }
-            </div>
-
-            </div>
+      <div className="flex flex-col items-center mx-auto">
+        <div className="text-4xl font-semibold text-white">
+          Unlock the
+          <HighlightText text={"Power of Code"} />
         </div>
+        <p className="text-richblack-300 text-sm z mt-3 ">
+          Learn to Build Anything You Can Imagine
+        </p>
+        {/* card section */}
+         <div className="flex fleex-row gap-6 px-5 rounded-full bg-richblack-700 mt-5 py-2 text-[16px]  ">
+            {tabItems.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => tabCangeHandler(index)}
+                className={`${
+                  currentTab === item
+                    ? "bg-richblack-900 text-richblack-5 font-medium "
+                    : " text-richblack-200"
+                } cursor-pointer rounded-full px-2.5 py-1 transition-all duration-200 hover:bg-richblack-200 hover:text-richblack-5 `}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+         
+        <div className="flex flex-col gap-7 items-center ">
+         
+        </div>
+        <div className="md:h-[150px]"></div>
+         <div className="flex flex-row gap-5 items-center justify-between ">
+            {carddetails.map((value, index) => (
+              <CourseCard
+                key={index}
+              cardData={value}
+              currentCard={crrentCard}
+              setCurrentCard={setCurrentCard}
+              />
+            
+              
+            ))}
+              {/* <div key={index} className="px-5 w-fit max-w-[350px]">
+                <h2 className="text-2xl text-richblack-200">{value.heading}</h2>
+                <p className="text-richblack-500 font-thin ">
+                  {value.description}
+                </p>
+                <hr className="w-full border-richblack-300  border-dashed bg-richblack-300"/>
+                <div className="flex justify-between">
+                  <div>{value.level}</div>
+                  <div>{value.lessionNumber}</div>
+                </div>
+              </div> */}
+            
+          </div>
+      </div>
     </div>
-  )
+  );
 }
