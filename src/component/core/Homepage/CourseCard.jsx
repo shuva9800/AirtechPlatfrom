@@ -13,7 +13,7 @@ export default function CourseCard({
         currentCard === cardData.heading
           ? "bg-white shadow-[12px_12px_0_0] shadow-yellow-50"
           : "bg-richblack-800"
-      } max-w-sm p-6 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 `}
+      } max-w-sm p-6 border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 cursor-pointer`}
       onClick={() => setCurrentCard(cardData.heading)}
     >
       <a href="#">
