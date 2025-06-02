@@ -12,17 +12,22 @@ const tabItems = [
 ];
 
 export default function ExploreMore() {
-  const [currentTab, setcurrentTab] = useState(tabItems[0]);
+  const [currentTab, setCurrentTab] = useState(tabItems[0]);
   const [carddetails, setcardDetails] = useState(HomePageExplore[0].courses);
   const [crrentCard, setCurrentCard] = useState(
-    HomePageExplore[0].courses.heading
+    carddetails[0]
   );
-  console.log(carddetails);
-  function tabCangeHandler(index) {
-    setcurrentTab(tabItems[index]);
-    setcardDetails(HomePageExplore[index].courses);
-    setCurrentCard(HomePageExplore[index].courses[0].heading);
+  
+  function tabCangeHandler(value) {
+    
+
+    // rsult
+     setCurrentTab(value);
+    const result = HomePageExplore.filter((course) => course.tag === value);
+    setcardDetails(result[0].courses);
+    setCurrentCard(result[0].courses[0].heading);
   }
+
 
   return (
     <div>
@@ -39,7 +44,7 @@ export default function ExploreMore() {
             {tabItems.map((item, index) => (
               <div
                 key={index}
-                onClick={() => tabCangeHandler(index)}
+                onClick={() => tabCangeHandler(item)}
                 className={`${
                   currentTab === item
                     ? "bg-richblack-900 text-richblack-5 font-medium "
@@ -62,21 +67,12 @@ export default function ExploreMore() {
               cardData={value}
               currentCard={crrentCard}
               setCurrentCard={setCurrentCard}
+             
               />
             
               
             ))}
-              {/* <div key={index} className="px-5 w-fit max-w-[350px]">
-                <h2 className="text-2xl text-richblack-200">{value.heading}</h2>
-                <p className="text-richblack-500 font-thin ">
-                  {value.description}
-                </p>
-                <hr className="w-full border-richblack-300  border-dashed bg-richblack-300"/>
-                <div className="flex justify-between">
-                  <div>{value.level}</div>
-                  <div>{value.lessionNumber}</div>
-                </div>
-              </div> */}
+             
             
           </div>
       </div>
