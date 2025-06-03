@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div>
       {/* section 1 */}
-      <div className="mx-auto flex flex-col w-11/12 items-center justify-between relative text-white max-w-maxContent ">
+      <div className="mx-auto flex flex-col w-11/12 items-center justify-between relative text-white max-w-maxContent mt-5 ">
         <Link to={"/Signup"} className="mt-16">
           <div className="group bg-richblack-800 rounded-full  p-1 transition-all duration-200 hover:scale-95 font-bold w-fit border">
             <div className="flex items-center justify-center gap-2 mx-auto px-4 py-1 transition-all duration-200 group-hover:bg-richblack-900 rounded-full">

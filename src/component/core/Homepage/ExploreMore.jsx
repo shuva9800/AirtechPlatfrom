@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HomePageExplore } from "../../../data/homepage-explore";
 import HighlightText from "./HighlightText";
 import CourseCard from "./CourseCard";
@@ -23,6 +23,9 @@ export default function ExploreMore() {
     setcardDetails(result[0].courses);
     setCurrentCard(result[0].courses[0].heading);
   }
+  // useEffect(()=>{
+  //   tabCangeHandler()
+  // },[])
 
   return (
     <div>
