@@ -14,7 +14,7 @@ const tabItems = [
 export default function ExploreMore() {
   const [currentTab, setCurrentTab] = useState(tabItems[0]);
   const [carddetails, setcardDetails] = useState(HomePageExplore[0].courses);
-  const [crrentCard, setCurrentCard] = useState(carddetails[0]);
+  const [crrentCard, setCurrentCard] = useState(HomePageExplore[0].courses[0].heading);
 
   function tabCangeHandler(value) {
     // rsult
@@ -23,9 +23,7 @@ export default function ExploreMore() {
     setcardDetails(result[0].courses);
     setCurrentCard(result[0].courses[0].heading);
   }
-  // useEffect(()=>{
-  //   tabCangeHandler()
-  // },[])
+
 
   return (
     <div>

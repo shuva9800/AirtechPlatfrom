@@ -61,7 +61,7 @@ export default function Home() {
               "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
             }
             ctabtn1={{
-              btnText: "try it yourself",
+              btnText: "Try it Yourself",
               linkto: "/signup",
               active: true,
             }}
@@ -89,7 +89,7 @@ export default function Home() {
               "Our courses are designed and taught by industry experts who have years of experience in coding and are passionate about sharing their knowledge with you."
             }
             ctabtn1={{
-              btnText: "try it yourself",
+              btnText: "Continue Lesson",
               linkto: "/signup",
               active: true,
             }}
