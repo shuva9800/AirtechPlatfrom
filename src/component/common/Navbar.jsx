@@ -5,10 +5,9 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { IoCartOutline } from "react-icons/io5";
 import { NavbarLinks } from "../../data/navbar-links";
 import { useSelector } from "react-redux";
-import profileDropDown from "../core/Auth/profileDropDown";
 import { apiConnector } from "../../services/apiconnector";
-import { catagories } from "../../services/api";
-import axios from "axios";
+import { categories } from "../../services/api";
+import ProfileDropdownMenu from "../core/Auth/ProfileDropdownMenu";
 
 export default function Navbar() {
   const { token } = useSelector((state) => state.auth);
@@ -17,15 +16,11 @@ export default function Navbar() {
   const location = useLocation();
   //catagory list fetching start
   const [subLinks, setsubLinks] = useState([]);
-  console.log(subLinks);
 
   const fetchSublinks = async () => {
     try {
-      // const result=  await apiConnector("GET", catagories.CATAGORIES_API)
-      const result = await axios.get(
-        "http://localhost:4000/api/v1/course/showAllCatagory"
-      );
-      console.log("printing sublinks result :-", result);
+      const result = await apiConnector("GET", categories.CATEGORIES_API);
+
       setsubLinks(result.data.allCatagory);
     } catch (error) {
       console.log("Could not fetch the catagory list");
@@ -44,7 +39,11 @@ export default function Navbar() {
     <div className=" h-14 border-b-[1px] border-b-richblack-700 top-[-17px] z-10 ">
       <div className=" w-11/12 max-w-maxContent flex flex-row justify-between items-center mx-auto px-4 py-2 font-medium text-richblack-25 text-[20px] ">
         <Link to={"/"}>
-          <img src={logo} className="object-contain w-[160px] h-[32px]" />
+          <img
+            src={logo}
+            alt="logo"
+            className="object-contain w-[160px] h-[32px]"
+          />
         </Link>
 
         <div>
@@ -56,11 +55,17 @@ export default function Navbar() {
                     <p>{link.title}</p>
                     <RiArrowDropDownLine />
                     <div className="invisible absolute left-[50%] top-[50%] translate-x-[-40%] translate-y-[15%] rounded-md flex flex-col bg-richblack-5 p-4 gap-1 text-richblack-900 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 lg:w-[300px]">
-                      {subLinks.map((item, index) => (
-                        <p key={index}>{item.name}</p>
-                      ))}
+                      {subLinks.length ? (
+                        subLinks.map((item, index) => (
+                          <Link key={index}>
+                            <p className="text-[16px] font-mono">{item.name}</p>
+                          </Link>
+                        ))
+                      ) : (
+                        <div></div>
+                      )}
                     </div>
-                    <div className="h-6 w-6 bg-richblack-5 rounded-md rotate-45 absolute top-[26px] left-[55%] translate-x-[80%] translet-y-[60%] invisible opacity-0 group-hover:visible group-hover:opacity-100"></div>
+                    <div className="h-6 w-6 bg-richblack-5 rounded-md rotate-45 absolute top-[26px] left-[55%] translate-x-[80%] translet-y-[60%] invisible opacity-0 group-hover:visible group-hover:opacity-100 transition -all duration-200"></div>
                   </div>
                 ) : (
                   <Link to={link?.path}>
@@ -82,7 +87,7 @@ export default function Navbar() {
 
         {/* Login && Signup Dashboard*/}
         <div className="flex flex-row gap-3  items-center text-[15px]">
-          {user && user?.accountType != "Instractor" && (
+          {user && user?.accountType !== "Instractor" && (
             <Link to={"/dashboard/cart"} className="relative">
               <IoCartOutline />
               {totalItems > 0 && <span>{totalItems}</span>}
@@ -103,7 +108,7 @@ export default function Navbar() {
               </button>
             </Link>
           )}
-          {token !== null && <profileDropDown />}
+          {token !== null && <ProfileDropdownMenu />}
         </div>
       </div>
     </div>
