@@ -9,8 +9,8 @@ function LoginForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    // email: "",
+    // password: "",
   })
 
   const [showPassword, setShowPassword] = useState(false)
@@ -42,6 +42,7 @@ function LoginForm() {
           required
           type="text"
           name="email"
+          id="email"
           value={email}
           onChange={handleOnChange}
           placeholder="Enter email address"
@@ -59,6 +60,7 @@ function LoginForm() {
           required
           type={showPassword ? "text" : "password"}
           name="password"
+          id="password"
           value={password}
           onChange={handleOnChange}
           placeholder="Enter Password"
@@ -68,7 +70,8 @@ function LoginForm() {
           className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
         />
         <span
-          onClick={() => setShowPassword((prev) => !prev)}
+        // (prev) => !prev
+          onClick={() => setShowPassword(!showPassword)}
           className="absolute right-3 top-[38px] z-[10] cursor-pointer"
         >
           {showPassword ? (

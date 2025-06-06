@@ -6,7 +6,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { NavbarLinks } from "../../data/navbar-links";
 import { useSelector } from "react-redux";
 import { apiConnector } from "../../services/apiconnector";
-import { categories } from "../../services/api";
+import {  courseEndpoints } from "../../services/api";
 import ProfileDropdownMenu from "../core/Auth/ProfileDropdownMenu";
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const fetchSublinks = async () => {
     try {
-      const result = await apiConnector("GET", categories.CATEGORIES_API);
+      const result = await apiConnector("GET", courseEndpoints.COURSE_CATEGORIES_API);
 
       setsubLinks(result.data.allCatagory);
     } catch (error) {

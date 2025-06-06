@@ -18,11 +18,11 @@ function SignupForm() {
   const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT)
 
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    // firstName: "",
+    // lastName: "",
+    // email: "",
+    // password: "",
+    // confirmPassword: "",
   })
 
   const [showPassword, setShowPassword] = useState(false)
@@ -34,7 +34,7 @@ function SignupForm() {
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [e.target.id]: e.target.value,
     }))
   }
 
@@ -97,6 +97,7 @@ function SignupForm() {
               required
               type="text"
               name="firstName"
+              id="firstName"
               value={firstName}
               onChange={handleOnChange}
               placeholder="Enter first name"
@@ -114,6 +115,7 @@ function SignupForm() {
               required
               type="text"
               name="lastName"
+              id="lastName"
               value={lastName}
               onChange={handleOnChange}
               placeholder="Enter last name"
@@ -132,6 +134,7 @@ function SignupForm() {
             required
             type="text"
             name="email"
+            id="email"
             value={email}
             onChange={handleOnChange}
             placeholder="Enter email address"
@@ -150,6 +153,7 @@ function SignupForm() {
               required
               type={showPassword ? "text" : "password"}
               name="password"
+              id="password"
               value={password}
               onChange={handleOnChange}
               placeholder="Enter Password"
@@ -159,7 +163,7 @@ function SignupForm() {
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
             />
             <span
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-[38px] z-[10] cursor-pointer"
             >
               {showPassword ? (
@@ -177,6 +181,7 @@ function SignupForm() {
               required
               type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
+              id="confirmPassword"
               value={confirmPassword}
               onChange={handleOnChange}
               placeholder="Confirm Password"
@@ -186,7 +191,7 @@ function SignupForm() {
               className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-10 text-richblack-5"
             />
             <span
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-3 top-[38px] z-[10] cursor-pointer"
             >
               {showConfirmPassword ? (
