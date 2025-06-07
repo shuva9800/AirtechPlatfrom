@@ -52,6 +52,7 @@ export function signUp(
   otp,
   navigate
 ) {
+
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))

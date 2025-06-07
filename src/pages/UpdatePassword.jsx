@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../component/common/Loader'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { resetPassword } from '../services/operations/authAPI';
 
@@ -14,6 +14,7 @@ export default function UpdatePassword() {
     const [showConfirmPassword , setshowConfirmPassword] = useState(false);
     const [formData , setFormData] = useState({ });
     const {password ,confirmPassword} =formData;
+    const navigate = useNavigate();
 
 
     function handelOnChange(event){
@@ -30,7 +31,7 @@ export default function UpdatePassword() {
     const handelOnSubmit = (e)=>{
              e.preventDefault();
              const token = location.pathname.split('/').at(-1);
-             dispatch(resetPassword(password,confirmPassword,token))
+             dispatch(resetPassword(password,confirmPassword,token,navigate))
     }
   return (
     

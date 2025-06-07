@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../component/common/Loader";
 import OtpInput from "react-otp-input";
 import { Link, useNavigate } from "react-router-dom";
-import Signup from "./Signup";
-import { sendOtp } from "../services/operations/authAPI";
+import { sendOtp, signUp } from "../services/operations/authAPI";
 
 export default function VerifyEmail() {
   const { signupData, loading } = useSelector((state) => state.auth);
@@ -18,6 +17,7 @@ export default function VerifyEmail() {
   }, []);
 
   const handelOnSubmit = (e) => {
+    
     e.preventDefault();
     const {
       accountType,
@@ -28,7 +28,7 @@ export default function VerifyEmail() {
       confirmPassword,
     } = signupData;
     dispatch(
-      Signup(
+      signUp(
         accountType,
         firstName,
         lastName,
@@ -54,16 +54,19 @@ export default function VerifyEmail() {
               value={otp}
               onChange={setOtp}
               numInputs={6}
-              renderInput={(props) => <input {...props} />}
+               renderSeparator={<span>-</span>}
+              renderInput={(props) => <input {...props} 
+                className="bg-richblack-600 text-richblack-5"
+              />}
             />
-            <button type="submit">Verify Email</button>
+            <button type='submit'>Verify Email</button>
           </form>
           <div>
             <Link to={"/login"}>
               <p>Back to Login</p>
             </Link>
             <button
-            onClick={()=> dispatch(sendOtp(signupData.email))}
+            onClick={()=> dispatch(sendOtp(signupData.email,navigate ))}
             >Resent it</button>
           </div>
         </div>
