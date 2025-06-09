@@ -4,9 +4,10 @@ import BannerImage1 from "../assets/Images/aboutus1.webp";
 import BannerImage2 from "../assets/Images/aboutus2.webp";
 import BannerImage3 from "../assets/Images/aboutus3.webp";
 import Quote from "../component/core/AboutPage/Quote";
-
 import FundingStory from "../assets/Images/FoundingStory.png";
 import StatsComponent from "../component/core/AboutPage/StatsComponent";
+import LearningGrid from "../component/core/AboutPage/LearningGrid"
+import ContactFormSection from "../component/core/AboutPage/ContactFormSection";
 
 export default function About() {
   return (
@@ -105,10 +106,15 @@ export default function About() {
 
 
       {/* Section 5 */}
-        <section>
+        <section className="w-11/12 mx-auto ">
           <LearningGrid/>
         </section>
+        {/* Section 4  Contact us Form*/}
 
+        <section className= "mb-[150px] " >
+          <ContactFormSection/>
+        </section>
+      
 
 
     </div>
