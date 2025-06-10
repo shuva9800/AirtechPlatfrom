@@ -8,6 +8,7 @@ import FundingStory from "../assets/Images/FoundingStory.png";
 import StatsComponent from "../component/core/AboutPage/StatsComponent";
 import LearningGrid from "../component/core/AboutPage/LearningGrid"
 import ContactFormSection from "../component/core/AboutPage/ContactFormSection";
+import Footer from "../component/common/Footer";
 
 export default function About() {
   return (
@@ -114,9 +115,14 @@ export default function About() {
         <section className= "mb-[150px] " >
           <ContactFormSection/>
         </section>
+        {/* Section 5 for Review section */}
+        <section>
+          <h1>Reviews from other learners</h1>
+        </section>
+
+        {/* footer section */}
+        <Footer/>
       
-
-
     </div>
   );
 }

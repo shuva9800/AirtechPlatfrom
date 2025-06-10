@@ -10,6 +10,7 @@ import OpenRoute from "./component/core/Auth/OpenRoute";
 import ProfileDropdown from "./component/core/Auth/ProfileDropdownMenu";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   return (
@@ -70,6 +71,14 @@ function App() {
           element={
             <OpenRoute>
               <About/>
+            </OpenRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <OpenRoute>
+              <ContactUs/>
             </OpenRoute>
           }
         />
