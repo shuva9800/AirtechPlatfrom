@@ -10,7 +10,7 @@ import { ClimbingBoxLoader } from "react-spinners";
 
 export default function Loader() {
   return (
-    <div>
+    <div className='w-11/12 mx-auto mt-7'>
            <ClimbingBoxLoader 
         // color={color}
         // loading={loading}

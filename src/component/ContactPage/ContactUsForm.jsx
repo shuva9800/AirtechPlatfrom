@@ -43,7 +43,7 @@ export default function ContactUsForm() {
 
   return (
     <form onSubmit={handleSubmit(submitContactForm)}>
-     <div>
+     <div className='flex flex-col gap-14'>
          <div className="flex gap-5">
         {/* firstName */}
         <div className="flex flex-col w-fit">
@@ -53,19 +53,21 @@ export default function ContactUsForm() {
             name="firstName"
             id="firstName"
             placeholder="Enter First Name"
+            className="text-black"
             {...register("firstName", { required: true })}
           />
-          {errors.firstname && <span>Enter Your First Name</span>}
+          {errors.firstname && <span className="text-red-500">Enter Your First Name</span>}
         </div>
 
         {/* lastName */}
         <div className="flex flex-col w-fit">
-          <lable htmlFor="firstName">Last Name</lable>
+          <lable htmlFor="lastName">Last Name</lable>
           <input
             type="text"
             name="lastName"
             id="lastName"
             placeholder="Enter Last Name"
+             className="text-black"
             {...register("lastName")}
           />
         </div>
@@ -79,9 +81,10 @@ export default function ContactUsForm() {
           name="email"
           id="email"
           placeholder="Enter Your Email Address"
+            className='text-black'
           {...register("email", { required: true })}
         />
-        {errors.email && <span>Enter Your Email Address</span>}
+        {errors.email && <span className="text-red-500">Enter Your Email Address</span>}
       </div>
 
         {/* phoneNo */}

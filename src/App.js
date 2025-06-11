@@ -54,7 +54,7 @@ function App() {
           path="/dashboard/my-profile"
           element={
             <OpenRoute>
-              <ProfileDropdown/>
+              <ProfileDropdown />
             </OpenRoute>
           }
         />
@@ -62,7 +62,7 @@ function App() {
           path="/verify-email"
           element={
             <OpenRoute>
-              <VerifyEmail/>
+              <VerifyEmail />
             </OpenRoute>
           }
         />
@@ -70,20 +70,13 @@ function App() {
           path="/about"
           element={
             <OpenRoute>
-              <About/>
+              <About />
             </OpenRoute>
           }
         />
-        <Route
-          path="/contact"
-          element={
-            <OpenRoute>
-              <ContactUs/>
-            </OpenRoute>
-          }
-        />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/dashboard/my-profile" element={<MyProfile/>}/>
       </Routes>
-       
     </div>
   );
 }
