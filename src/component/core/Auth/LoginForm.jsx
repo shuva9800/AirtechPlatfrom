@@ -1,33 +1,35 @@
-import { useState } from "react"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../../services/operations/authAPI";
 
-import { login } from "../../../services/operations/authAPI"
+
 
 function LoginForm() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [formData, setFormData] = useState({
-    // email: "",
-    // password: "",
-  })
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({});
 
-  const [showPassword, setShowPassword] = useState(false)
+  const { error } = useSelector((state) => state.auth);
 
-  const { email, password } = formData
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleOnChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }))
-  }
+  const { email, password } = formData;
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault()
-    dispatch(login(email, password, navigate))
-  }
+  const handleOnChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.id]: event.target.value,
+    });
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    // dispatch(login(email, password, navigate));
+    login(email, password, navigate,dispatch)
+  };
+  ///new code
 
   return (
     <form
@@ -70,7 +72,6 @@ function LoginForm() {
           className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
         />
         <span
-        // (prev) => !prev
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-3 top-[38px] z-[10] cursor-pointer"
         >
@@ -92,8 +93,9 @@ function LoginForm() {
       >
         Sign In
       </button>
+      <div>{error && <span className="text-red-600 mt-5">{error}</span>}</div>
     </form>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

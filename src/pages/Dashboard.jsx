@@ -9,7 +9,11 @@ export default function Dashboard() {
   const { loding: profileLoading } = useSelector((state) => state.profile);
 
   if (authLoading || profileLoading) {
-    return <Loader />;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (
