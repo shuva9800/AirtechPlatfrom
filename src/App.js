@@ -11,6 +11,7 @@ import ProfileDropdown from "./component/core/Auth/ProfileDropdownMenu";
 import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
+import MyProfile from "./component/core/Dashboard/MyProfile";
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
           }
         />
         <Route path="/contact" element={<ContactUs />} />
+         
         <Route path="/dashboard/my-profile" element={<MyProfile/>}/>
       </Routes>
     </div>

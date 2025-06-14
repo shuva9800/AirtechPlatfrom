@@ -102,11 +102,12 @@ export const login = async (email, password, navigate, dispatch) => {
     toast.success("Login Successful");
     dispatch(setToken(response.data.token));
     const userImage = response.data?.user?.image
-      ? response.data.user.image
+      ? response.data.data.image
       : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.firstName} ${response.data.data.lastName}`;
       
-    dispatch(setUser({ ...response.data.user, image: userImage }));
+    dispatch(setUser({ ...response.data.data, image: userImage }));
     localStorage.setItem("token", JSON.stringify(response.data.token));
+    // navigate("/dashboard/my-profile");
     navigate("/dashboard/my-profile");
   } catch (error) {
       console.log("LOGIN API ERROR............", error);
