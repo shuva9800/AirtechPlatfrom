@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import IconBtn from "../../common/iconBtn"
 
 export default function MyProfile() {
-    const {user} = useSelector((state)=> state.profie);
-    console.log("inside my profile component", user);
+    const {user} = useSelector((state)=> state.profile);
     const navigate = useNavigate();
   return (
     <div>

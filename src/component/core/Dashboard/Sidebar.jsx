@@ -6,6 +6,7 @@ import { VscSignOut } from "react-icons/vsc";
 import SidebarLink from "./SidebarLink";
 import { useNavigate } from "react-router-dom";
 import ConfirmatioModal from "../../common/ConfirmationModal"
+import Loader from "../../common/Loader";
 
 export default function Sidebar() {
   const { user, loading: profileLoading } = useSelector(

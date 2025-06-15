@@ -108,6 +108,7 @@ export default function Navbar() {
               </button>
             </Link>
           )}
+          
           {token !== null && <ProfileDropdownMenu />}
         </div>
       </div>
