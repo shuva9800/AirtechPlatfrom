@@ -15,7 +15,10 @@ export default function Sidebar() {
   const { loading: authLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [confirmationModal ,setConfirmationModal] = useState(null)
+  const [confirmationModal ,setConfirmationModal] = useState(null);
+
+  console.log("Link.type", sidebarLinks[1].type)
+  console.log("user AccountType", user.accountType )
 
   if (authLoading || profileLoading) {
     return (
@@ -70,3 +73,5 @@ export default function Sidebar() {
     </div>
   );
 }
+
+

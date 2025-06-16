@@ -12,8 +12,9 @@ import VerifyEmail from "./pages/VerifyEmail";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import MyProfile from "./component/core/Dashboard/MyProfile";
-import Error from "./pages/Error"
+import Error from "./pages/Error";
 import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./component/core/Auth/PrivateRoute";
 
 function App() {
   return (
@@ -79,39 +80,17 @@ function App() {
         />
         <Route path="/contact" element={<ContactUs />} />
 
+        <Route
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="dashboard/my-profile" element={<MyProfile />} />
+        </Route>
 
-        <Route  path="/dashboard"
-      element={
-        
-          <Dashboard />
-      
-      }
-    >
-      <Route path="my-profile" element={<MyProfile />} />
-      {/* <Route path="Settings" element={<Settings />} /> */}
-      
-
-      {/* {
-        user?.accountType === ACCOUNT_TYPE.STUDENT && (
-          <>
-          <Route path="dashboard/cart" element={<Cart />} />
-          <Route path="dashboard/enrolled-courses" element={<EnrolledCourses />} />
-          </>
-        )
-      } */}
-
-
-    </Route>
-
-
-         
-        <Route path="/dashboard/my-profile" element={<MyProfile/>}/>
-
-
-
-
-
-         <Route path="*" element={<Error />} />
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

@@ -107,8 +107,8 @@ export const login = async (email, password, navigate, dispatch) => {
       
     dispatch(setUser({ ...response.data.data, image: userImage }));
     localStorage.setItem("token", JSON.stringify(response.data.token));
-    // navigate("/dashboard/my-profile");
-    navigate("/dashboard/my-profile");
+    localStorage.setItem("user", JSON.stringify(response.data.data));
+    navigate("/dashboard/my-profile")
   } catch (error) {
       console.log("LOGIN API ERROR............", error);
       toast.error("Login Failed");
