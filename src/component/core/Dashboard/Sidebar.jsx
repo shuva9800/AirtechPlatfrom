@@ -15,10 +15,7 @@ export default function Sidebar() {
   const { loading: authLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [confirmationModal ,setConfirmationModal] = useState(null);
-
-  console.log("Link.type", sidebarLinks[1].type)
-  console.log("user AccountType", user.accountType )
+  const [confirmationModal ,setConfirmationModal] = useState(true);
 
   if (authLoading || profileLoading) {
     return (
@@ -50,16 +47,17 @@ export default function Sidebar() {
               iconName="VscSettingsGear"
             />
             <button
-               onClick={()=> setConfirmationModal(
-                {
-              text1: "Are You Sure?",
-              text2: "You will be logged out of your Account",
-              btn1Text:"Logout",
-              btn2Text:"Cancel",
-              btn1Handler:() => dispatch(logout(navigate)),
-              btn2Handler: ()=>setConfirmationModal(null),
-            } )
+              onClick={() =>
+              setConfirmationModal({
+                text1: "Are you sure?",
+                text2: "You will be logged out of your account.",
+                btn1Text: "Logout",
+                btn2Text: "Cancel",
+                btn1Handler: () => dispatch(logout(navigate)),
+                btn2Handler: () => setConfirmationModal(null),
+              })
             }
+
             className="text-sm font-medium text-richblack-300">
            
            <div className="flex items-center ga-x-2">
@@ -69,7 +67,9 @@ export default function Sidebar() {
            </button>
           </div>
       </div>
-      {confirmationModal && <ConfirmatioModal modatDat={confirmationModal}/>}
+      
+        {confirmationModal && <ConfirmatioModal modalData={confirmationModal}/>}
+     
     </div>
   );
 }

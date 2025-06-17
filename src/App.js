@@ -88,6 +88,7 @@ function App() {
           }
         >
           <Route path="dashboard/my-profile" element={<MyProfile />} />
+          {/* <Route path="dashboard/settings" element={<Setting />} /> */}
         </Route>
 
         <Route path="*" element={<Error />} />

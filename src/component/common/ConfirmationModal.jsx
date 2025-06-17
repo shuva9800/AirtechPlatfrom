@@ -2,8 +2,9 @@ import React from 'react'
 import IconBtn from "./iconBtn"
 
 export default function ConfirmationModal({modalData}) {
+    console.log("modaldata", modalData)
   return (
-    <div>
+    <div className='text-white z-index-60 mx-auto '>
         <div>
             <p>
                 {modalData.text1}
@@ -13,10 +14,10 @@ export default function ConfirmationModal({modalData}) {
             </p>
     <div>
         <IconBtn
-            onclick={modalData?.btnHandler}
+            onclick={modalData?.btn1Handler}
             text={modalData?.btn1Text}
         />
-        <button onClick={modalData?.ntn2Handler}>
+        <button onClick={modalData?.btn2Handler}>
             {modalData?.btn2Text}
         </button>
     </div>
