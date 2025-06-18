@@ -2,7 +2,6 @@ import React from 'react'
 import IconBtn from "./iconBtn"
 
 export default function ConfirmationModal({modalData}) {
-    console.log("modaldata", modalData)
   return (
     <div className='text-white z-index-60 mx-auto '>
         <div>

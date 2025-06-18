@@ -5,7 +5,7 @@ import IconBtn from "../../common/iconBtn";
 
 export default function MyProfile() {
   const { user } = useSelector((state) => state.profile);
-  console.log("user data", user);
+  console.log(user)
   const navigate = useNavigate();
   return (
     <div className="w-full">
