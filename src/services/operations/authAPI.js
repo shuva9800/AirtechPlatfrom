@@ -101,7 +101,7 @@ export const login = async (email, password, navigate, dispatch) => {
     }
     toast.success("Login Successful");
     dispatch(setToken(response.data.token));
-    const userImage = response.data?.user?.image
+    const userImage = response.data?.data?.image
       ? response.data.data.image
       : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.firstName} ${response.data.data.lastName}`;
       

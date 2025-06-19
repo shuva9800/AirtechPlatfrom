@@ -4,6 +4,7 @@ import Loader from "../component/common/Loader";
 import OtpInput from "react-otp-input";
 import { Link, useNavigate } from "react-router-dom";
 import { sendOtp, signUp } from "../services/operations/authAPI";
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function VerifyEmail() {
   const { signupData, loading } = useSelector((state) => state.auth);
@@ -14,7 +15,7 @@ export default function VerifyEmail() {
     if (!signupData) {
       navigate("/signup");
     }
-  }, []);
+  },[]);
 
   const handelOnSubmit = (e) => {
     
@@ -42,13 +43,13 @@ export default function VerifyEmail() {
   };
 
   return (
-    <div >
+    <div className="w-11/12 max-w-[508px] mx-auto mt-6 ">
       {loading ? (
         <Loader />
       ) : (
-        <div>
-          <h1>verify Email</h1>
-          <p>A verification code has been sent to you. Enter the code below</p>
+        <div className="max-w-[508px] flex flex-col gap-3 justify-center items-center">
+          <h1 className="font-semibold text-[26px] text-richblack-5">Verify Email</h1>
+          <p className="text-richblack-100 ">A verification code has been sent to you. Enter the code below</p>
           <form onSubmit={handelOnSubmit}>
             <OtpInput
               value={otp}
@@ -59,10 +60,11 @@ export default function VerifyEmail() {
                 className="bg-richblack-600 text-richblack-5"
               />}
             />
-            <button type='submit'>Verify Email</button>
+            <button type='submit' className="text-richblack-900 pt-3 bg-yellow-50" >Verify Email</button>
           </form>
-          <div>
-            <Link to={"/login"}>
+          <div className="flex justify-between">
+            <Link to={"/login"} className="flex items-center">
+            <IoIosArrowRoundBack />
               <p>Back to Login</p>
             </Link>
             <button
