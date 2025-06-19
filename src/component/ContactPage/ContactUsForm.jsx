@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CountryCode from "../../data/countrycode.json"
+import { contactusEndpoint } from "../../services/api";
+import { apiConnector } from "../../services/apiconnector";
+import { useSelector } from "react-redux";
 
 export default function ContactUsForm() {
   const [loading, setLoading] = useState(false);
+  const {token} = useSelector((state)=> state.auth)
   const {
     register,
     handleSubmit,
@@ -15,8 +19,12 @@ export default function ContactUsForm() {
         console.log("Logging Data" , data);
         try{
             setLoading(true);
-            // const response = await apiConnector("POST", contactusEndpoint.CONTACT_US_API, data);
-            const response = {status:"OK"};
+            const response = await apiConnector("POST", contactusEndpoint.CONTACT_US_API, data, 
+               {
+        Authorisation: `Bearer ${token}`,
+      }
+            );
+            // const response = {status:"OK"};
             console.log("Logging response", response);
             setLoading(false);
         }
@@ -36,7 +44,7 @@ export default function ContactUsForm() {
         firstname: "",
         lastName: "",
         message: "",
-        phoneNo: "",
+        phoneNumber: "",
       });
     }
   }, [reset, isSubmitSuccessful]);
@@ -90,7 +98,7 @@ export default function ContactUsForm() {
         {/* phoneNo */}
             <div className='flex flex-col'>
 
-                <label htmlFor='phonenumber'>Phone Number</label>
+                <label htmlFor='phoneNumber'>Phone Number</label>
 
                 <div className='flex flex-row gap-1'>
                     {/* dropdown */}
@@ -114,8 +122,8 @@ export default function ContactUsForm() {
                         
                         <input
                             type='number'
-                            name='phonenumber'
-                            id='phonenumber'
+                            name='phoneNumber'
+                            id='phoneNumber'
                             placeholder='12345 67890'
                             className='text-black  w-[calc(100%-90px)]'
                             {...register("phoneNo",  
