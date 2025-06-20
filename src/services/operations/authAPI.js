@@ -1,11 +1,14 @@
 import { toast } from "react-hot-toast";
 
-import { setLoading, setToken,signInFalior } from "../../app/slicess/authSlice";
+import {
+  setLoading,
+  setToken,
+  signInFalior,
+} from "../../app/slicess/authSlice";
 import { resetCart } from "../../app/slicess/cartSlice";
 import { setUser } from "../../app/slicess/profileSlice";
 import { apiConnector } from "../apiconnector";
 import { endpoints } from "../api";
-
 
 const {
   SENDOTP_API,
@@ -84,7 +87,7 @@ export function signUp(
   };
 }
 
-//Login function 
+//Login function
 export const login = async (email, password, navigate, dispatch) => {
   dispatch(setLoading(true));
   try {
@@ -92,28 +95,27 @@ export const login = async (email, password, navigate, dispatch) => {
       email,
       password,
     });
-    
 
     console.log("LOGIN API RESPONSE............", response.data);
     if (!response.data.success) {
       dispatch(signInFalior(response.data.message));
-      return
+      return;
     }
     toast.success("Login Successful");
     dispatch(setToken(response.data.token));
     const userImage = response.data?.data?.image
       ? response.data.data.image
       : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.data.firstName} ${response.data.data.lastName}`;
-      
+
     dispatch(setUser({ ...response.data.data, image: userImage }));
     localStorage.setItem("token", JSON.stringify(response.data.token));
     localStorage.setItem("user", JSON.stringify(response.data.data));
-    navigate("/dashboard/my-profile")
+    navigate("/dashboard/my-profile");
   } catch (error) {
-      console.log("LOGIN API ERROR............", error);
-      toast.error("Login Failed");
-      const message = error.response?.data?.message || "Login failed. Try again."
-       dispatch(signInFalior(message));
+    console.log("LOGIN API ERROR............", error);
+    toast.error("Login Failed");
+    const message = error.response?.data?.message || "Login failed. Try again.";
+    dispatch(signInFalior(message));
   }
   dispatch(setLoading(false));
 };
@@ -133,7 +135,7 @@ export const login = async (email, password, navigate, dispatch) => {
 
 //       if (!response.data.success) {
 //         // throw new Error(response.data.message);
-        
+
 //          dispatch(signInFalior(response.data.message));
 //          return;
 //       }
@@ -150,40 +152,36 @@ export const login = async (email, password, navigate, dispatch) => {
 //       console.log("LOGIN API ERROR............", error);
 //        dispatch(signInFalior(error));
 //       toast.error("Login Failed");
-      
+
 //     }
 //     dispatch(setLoading(false));
 //     toast.dismiss(toastId);
 //   };
 // }
 
+export const getPasswordResetToken = async (email, setEmailSent, dispatch) => {
+  const toastId = toast.loading("Loading...");
+  dispatch(setLoading(true));
+  try {
+    const response = await apiConnector("POST", RESETPASSTOKEN_API, {
+      email,
+    });
 
+    console.log("RESETPASSTOKEN RESPONSE............", response);
 
-export function getPasswordResetToken(email, setEmailSent) {
-  return async (dispatch) => {
-    const toastId = toast.loading("Loading...");
-    dispatch(setLoading(true));
-    try {
-      const response = await apiConnector("POST", RESETPASSTOKEN_API, {
-        email,
-      });
-
-      console.log("RESETPASSTOKEN RESPONSE............", response);
-
-      if (!response.data.success) {
-        throw new Error(response.data.message);
-      }
-
-      toast.success("Reset Email Sent");
-      setEmailSent(true);
-    } catch (error) {
-      console.log("RESETPASSTOKEN ERROR............", error);
-      toast.error("Failed To Send Reset Email");
+    if (!response.data.success) {
+      throw new Error(response.data.message);
     }
-    toast.dismiss(toastId);
-    dispatch(setLoading(false));
-  };
-}
+
+    toast.success("Reset Email Sent");
+    setEmailSent(true);
+  } catch (error) {
+    console.log("RESETPASSTOKEN ERROR............", error);
+    toast.error("Failed To Send Reset Email");
+  }
+  toast.dismiss(toastId);
+  dispatch(setLoading(false));
+};
 
 export function resetPassword(
   newPassword,

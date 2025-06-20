@@ -43,11 +43,11 @@ export default function VerifyEmail() {
   };
 
   return (
-    <div className="w-11/12 max-w-[508px] mx-auto mt-6 ">
+    <div className="min-h-[calc(100vh-3.5rem)] grid place-items-center">
       {loading ? (
         <Loader />
       ) : (
-        <div className="max-w-[508px] flex flex-col gap-3 justify-center items-center">
+        <div className="max-w-[508px] p-4 lg:p-8">
           <h1 className="font-semibold text-[26px] text-richblack-5">Verify Email</h1>
           <p className="text-richblack-100 ">A verification code has been sent to you. Enter the code below</p>
           <form onSubmit={handelOnSubmit}>
