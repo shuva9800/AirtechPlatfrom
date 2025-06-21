@@ -32,7 +32,7 @@ export default function ForgotPassword() {
           <form onSubmit={handelOnSubmit} >
             {!emailSent && (
               <label className="w-full">
-                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Email Address </p>
+                <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Email Address <sup className="text-pink-200">*</sup></p>
                 <input
                   required
                   type="email"
@@ -41,7 +41,7 @@ export default function ForgotPassword() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter Your Email Address"
-                  className="form-style w-full border border-richblack-700 bg-richblack-800 text-richblack-5 rounded-md py-2 px-1"
+                  className="form-style w-full border border-richblack-700 bg-richblack-800 text-richblack-5 rounded-md py-2 px-2"
                 />
               </label>
             )}
