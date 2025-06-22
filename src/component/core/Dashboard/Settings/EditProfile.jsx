@@ -1,6 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import IconBtn from '../../../common/IconBtn'
+import { useForm } from 'react-hook-form'
+import { updateProfile } from '../../../../services/operations/SettingsApi'
+
 
 
 const genders = ["Male", "Female", "Non-Binary", "Prefer not to say", "Other"]

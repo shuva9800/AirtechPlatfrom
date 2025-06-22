@@ -23,7 +23,7 @@ import Setting from "./component/core/Dashboard/Settings/Setting";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
-  console.log("in app.js ", user)
+
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter text-white ">
       <Navbar />

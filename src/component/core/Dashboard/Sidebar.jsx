@@ -15,11 +15,11 @@ export default function Sidebar() {
   const { loading: authLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [confirmationModal ,setConfirmationModal] = useState(true);
+  const [confirmationModal ,setConfirmationModal] = useState(null);
 
   if (authLoading || profileLoading) {
     return (
-      <div>
+      <div className="grid h-[calc(100vh-3.5rem)] min-w-[220px] items-center border-r-[1px] border-r-richblack-700 bg-richblack-800">
         <Loader />
       </div>
     );
@@ -27,7 +27,7 @@ export default function Sidebar() {
 
   return (
     <div className="">
-      <div className="flex min-w-[222px] flex-col border border-r-[1px] border-r-richblack-700 h-[calc(100vh-3.5rem)] bg-richblack-800 py-10">
+      <div className="flex h-[100vh] min-w-[220px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 py-10  ">
         <div className="flex flex-col">
             {
               sidebarLinks.map((link)=> {
@@ -38,7 +38,7 @@ export default function Sidebar() {
             })
             }
         </div>
-        <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-600"></div>
+        <div className="mx-auto mt-6 mb-6 h-[1px] w-10/12 bg-richblack-700"></div>
           
           <div className="flex flex-col">
             <SidebarLink
@@ -60,7 +60,7 @@ export default function Sidebar() {
 
             className="text-sm font-medium text-richblack-300">
            
-           <div className="flex items-center ga-x-2">
+           <div className="flex items-center gap-x-2 px-8 mt-2">
               <VscSignOut className="text-lg"/>
               <span>Logout</span>
            </div>

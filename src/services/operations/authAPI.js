@@ -91,10 +91,15 @@ export function signUp(
 export const login = async (email, password, navigate, dispatch) => {
   dispatch(setLoading(true));
   try {
-    const response = await apiConnector("POST", LOGIN_API, {
-      email,
-      password,
-    });
+    const response = await apiConnector(
+      "POST",
+      LOGIN_API,
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
 
     console.log("LOGIN API RESPONSE............", response.data);
     if (!response.data.success) {

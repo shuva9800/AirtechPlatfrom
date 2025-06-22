@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function iconBtn({
+export default function IconBtn({
   text,
   onclick,
-  clildren,
+  children,
   disabled,
   outline = false,
   customClasses,
@@ -11,10 +11,10 @@ export default function iconBtn({
 }) {
   return (
     <button disabled={disabled} onClick={onclick} type={type}>
-      {clildren ? (
+      {children ? (
         <>
           <span>{text}</span>
-          {clildren}
+          {children}
         </>
       ) : (
         text

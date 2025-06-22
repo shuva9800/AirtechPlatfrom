@@ -24,7 +24,7 @@ export default function SidebarLink({ link, iconName }) {
           matchRoute(link.path) ? "opacity-100" : "opacity-0"
         }`}
       ></span>
-      <div className="fles items-center gap-x-2">
+      <div className="flex items-center gap-x-2">
         <Icon className="text-lg" />
         <span>{link.name}</span>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import IconBtn from "../../../common/iconBtn"
+import IconBtn from '../../../common/IconBtn'
+
 
 export default function RenderTotalAmount() {
     const {total,cart} = useSelector((state)=>state.cart)
