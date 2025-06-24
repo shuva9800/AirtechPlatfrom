@@ -100,7 +100,7 @@ export default function ContactUsForm() {
           )}
         </div>
 
-        {/* phoneNo */}
+        {/* phoneNumber */}
         <div className="flex flex-col">
           <label htmlFor="phoneNumber">Phone Number</label>
 
@@ -128,16 +128,16 @@ export default function ContactUsForm() {
               id="phoneNumber"
               placeholder="12345 67890"
               className="text-black  w-[calc(100%-90px)] form-style"
-              {...register("phoneNo", {
+              {...register("phoneNumber", {
                 required: { value: true, message: "Please enter Phone Number" },
                 maxLength: { value: 10, message: "Invalid Phone Number" },
                 minLength: { value: 8, message: "Invalid Phone Number" },
               })}
             />
           </div>
-          {errors.phoneNo && (
+          {errors.phoneNumber && (
             <span className="-mt-1 text-[12px] text-yellow-100">
-              {errors.phoneNo.message}
+              {errors.phoneNumber.message}
             </span>
           )}
         </div>
