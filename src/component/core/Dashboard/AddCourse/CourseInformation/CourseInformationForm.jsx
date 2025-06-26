@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCourseCategories } from "../../../../../services/operations/courseDetailsAPI";
+import { HiOutlineCurrencyRupee } from "react-icons/hi";
+import RequirementFild from "./RequirementFild";
 
 export default function CourseInformationForm() {
   const {
@@ -16,6 +18,7 @@ export default function CourseInformationForm() {
   const { course, editCourse } = useSelector((state) => state.course);
   const [loading, setLoading] = useState(false);
   const [courseCatagories, setCourseCatagories] = useState([]);
+  console.log("CourseCatagories are :-", courseCatagories)
 
   useEffect(() => {
     const getCatagories = async () => {
@@ -38,7 +41,7 @@ export default function CourseInformationForm() {
     }
 
     getCatagories();
-  });
+  },[]);
   const onSubmit = async (data) => {};
   return (
     <form
@@ -46,7 +49,7 @@ export default function CourseInformationForm() {
       className="rounded-md border-richblack-700 bg-richblue-800 p-6 spage-y-6"
     >
       <div>
-        <lebel>
+        <lebel htmlFor="courseTitle">
           Course Title <sup className="text-pink-200">*</sup></lebel>
           <input
             type="text"
@@ -59,6 +62,99 @@ export default function CourseInformationForm() {
             <span>Course Title is required**</span>
           )}
       </div>
+      <div>
+        <label htmlFor="courseShortDesc">Course Short Description<sup className="text-pink-200">*</sup></label>
+        <textarea
+          id="courseShortDesc"
+          placeholder="Enter Description"
+          {...register("courseShortDesc", {required:true})}
+          className="min-h-[130px] w-full"
+        />
+        {errors.courseShortDesc && (<span>Course Description is required**</span>)}
+      </div>
+
+      <div className="relative">
+        <lebel htmlFor="coursePrice">
+          Course Title <sup className="text-pink-200">*</sup></lebel>
+          <input
+            type="text"
+            id="coursePrice"
+            placeholder="Enter Price"
+            {...register("coursePrice", {required:true , valueAsNumber: true})}
+            className="w-full bg-richblack-700 "
+          />
+             <span className="bg-transparent absolute top-7 left-[10px]"><HiOutlineCurrencyRupee /></span>
+          {errors.courseTitle && (
+            <span>Course Price is required**</span>
+          )}
+      </div>
+      <div>
+      <label htmlFor="courseCategory">Catagory<sup className="text-pink-200">*</sup></label>
+        
+            <select
+            id="courseCategory"
+            defaultValue=""
+            {...register("courseCategory", {required:true})}
+            
+            className="bg-richblue-600">
+            <option value="" disabled>Chose a Catagory</option>
+              {
+               !loading && courseCatagories.map((catagory , index)=>(
+                  <option key={index} value={catagory?._id} >{catagory?.name}</option>
+                ))
+              }
+            </select>
+
+             {errors.courseCategory && (
+            <span>Course Catagory is Required**</span>
+          )}
+      </div>
+      {/* ///create  a custom component for handlaing tags input */}
+      {/* <ChipInput
+        label="Tags"
+        name="courseTags"
+        placeholder="Enter tags and press enter"
+        register={register}
+        errors={errors}
+        setValue={setValue}
+        getValues={getValues}
+      /> */}
+
+      {/*Create a component for  Thumbnil Upload */}
+      {/* <Upload
+        name
+        label
+        register
+        setValue
+        errors
+      /> */}
+
+        {/* Benifites of the course */}
+        <div>
+          <label>Benefits of the course <sup className="text-pink-200">*</sup></label>
+          <textarea
+            id="courseBenefits"
+            placeholder="Enter Benefits of the course"
+            
+            {...register("courseBenefits",{required:true})}
+            className="min-h-[130px] w-full"
+
+          />
+           {errors.courseBenefits && (
+            <span> Benefits of the Course are Required**</span>
+          )}
+        </div>
+
+        <RequirementFild
+          name="courseRequirements"
+          label="Requirements/Instructions"
+          register={register}
+          errors={errors}
+
+          setValue={setValue}
+          getValues={getValues}
+
+        />
     </form>
   );
 }
