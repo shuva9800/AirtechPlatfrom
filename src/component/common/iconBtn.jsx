@@ -10,7 +10,7 @@ export default function IconBtn({
   type,
 }) {
   return (
-    <button disabled={disabled} onClick={onclick} type={type}>
+    <button disabled={disabled} onClick={onclick} type={type} className="border border-richblack-600 px-3 rounded-sm py-1">
       {children ? (
         <>
           <span>{text}</span>
