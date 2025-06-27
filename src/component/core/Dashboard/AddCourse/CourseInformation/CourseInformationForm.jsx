@@ -12,6 +12,7 @@ import IconBtn from "../../../../common/IconBtn";
 import { setCourse, setStep } from "../../../../../app/slicess/courseSlice";
 import toast from "react-hot-toast";
 import { COURSE_STATUS } from "../../../../../utils/constants";
+import ChipInput from "./ChipInput";
 export default function CourseInformationForm() {
   const {
     register,
@@ -213,7 +214,7 @@ export default function CourseInformationForm() {
         {errors.courseCategory && <span>Course Catagory is Required**</span>}
       </div>
       {/* ///create  a custom component for handlaing tags input */}
-      {/* <ChipInput
+      <ChipInput
         label="Tags"
         name="courseTags"
         placeholder="Enter tags and press enter"
@@ -221,7 +222,7 @@ export default function CourseInformationForm() {
         errors={errors}
         setValue={setValue}
         getValues={getValues}
-      /> */}
+      />
 
       {/*Create a component for  Thumbnil Upload */}
       {/* <Upload
