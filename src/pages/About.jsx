@@ -27,7 +27,7 @@ export default function About() {
             nurturing a vibrant learning community.
           </p>
           <div className="sm:h-[70px] lg:h-[150px]"></div>
-          <div className="absolute bottom-0 left-[-50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
+          <div className="absolute bottom-0 left-[-50%] grid w-[100%] translate-x-[50%] translate-y-[45%] grid-cols-3 gap-3 lg:gap-5">
             <img src={BannerImage1} alt="" />
             <img src={BannerImage2} alt="" />
             <img src={BannerImage3} alt="" />
@@ -35,7 +35,7 @@ export default function About() {
         </div>
       </section>
       {/* Section 2 */}
-      <section className="borer-b border-richblack-700">
+      <section className="borer-b border-richblack-700 mt-3">
         <div className="mx-auto w-11/12 max-w-maxContent flex flex-col justify-between gap-10 text-richblack-500">
           <div className="h-[100px] "></div>
           <Quote />

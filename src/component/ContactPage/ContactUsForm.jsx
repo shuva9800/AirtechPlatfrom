@@ -49,18 +49,18 @@ export default function ContactUsForm() {
   }, [reset, isSubmitSuccessful]);
 
   return (
-    <form onSubmit={handleSubmit(submitContactForm)}>
-      <div className="flex flex-col gap-14">
-        <div className="flex gap-5">
+    <form onSubmit={handleSubmit(submitContactForm)} className="flex flex-col gap-7">
+      <div className="flex flex-col gap-5 lg:flex-row">
+        <div className="flex flex-col gap-2 lg:w-[48%]">
           {/* firstName */}
           <div className="flex flex-col w-fit">
-            <lable htmlFor="firstName">First Name</lable>
+            <lable htmlFor="firstName" className="lable-style">First Name</lable>
             <input
               type="text"
               name="firstName"
               id="firstName"
               placeholder="Enter First Name"
-              className="text-black"
+             className="form-style"
               {...register("firstName", { required: true })}
             />
             {errors.firstname && (
@@ -71,8 +71,8 @@ export default function ContactUsForm() {
           </div>
 
           {/* lastName */}
-          <div className="flex flex-col w-fit">
-            <lable htmlFor="lastName">Last Name</lable>
+          <div className="flex flex-col gap-2 lg:w-[48%]">
+            <lable htmlFor="lastName" className="lable-style">Last Name</lable>
             <input
               type="text"
               name="lastName"
@@ -85,8 +85,8 @@ export default function ContactUsForm() {
         </div>
 
         {/* Email */}
-        <div className="flex flex-col w-fit">
-          <lable htmlFor="email">Email Address</lable>
+        <div className="flex flex-col w-fit gap-2">
+          <lable htmlFor="email" className="lable-style">Email Address</lable>
           <input
             type="email"
             name="email"
@@ -96,12 +96,12 @@ export default function ContactUsForm() {
             {...register("email", { required: true })}
           />
           {errors.email && (
-            <span className="text-red-500">Enter Your Email Address</span>
+            <span className="-mt-1 text-[12px] text-yellow-100">Enter Your Email Address</span>
           )}
         </div>
 
         {/* phoneNumber */}
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-2">
           <label htmlFor="phoneNumber">Phone Number</label>
 
           <div className="flex flex-row gap-1">

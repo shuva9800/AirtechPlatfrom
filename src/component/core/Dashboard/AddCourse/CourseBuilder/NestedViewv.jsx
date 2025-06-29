@@ -16,7 +16,7 @@ const [confirmationModal , setConfirmationModal]= useState(null)
         {
           course?.courseContent.map((section)=>(
             <details key={section._id} open>
-                <summary>
+                <summary className='flex items-center justify-between border-b -2 gap-3'>
                   <div>
                     <RxDropdownMenu />
                     <p>{section?.sectionname}</p>
