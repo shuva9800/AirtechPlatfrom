@@ -13,6 +13,7 @@ import { setCourse, setStep } from "../../../../../app/slicess/courseSlice";
 import toast from "react-hot-toast";
 import { COURSE_STATUS } from "../../../../../utils/constants";
 import ChipInput from "./ChipInput";
+import Upload from "../Upload";
 export default function CourseInformationForm() {
   const {
     register,
@@ -225,13 +226,16 @@ export default function CourseInformationForm() {
       />
 
       {/*Create a component for  Thumbnil Upload */}
-      {/* <Upload
-        name
-        label
-        register
-        setValue
-        errors
-      /> */}
+      {/* Course Thumbnail Image */}
+      <Upload
+        name="courseImage"
+        label="Course Thumbnail"
+        register={register}
+        setValue={setValue}
+        errors={errors}
+        editData={editCourse ? course?.thumbnail : null}
+      />
+
 
       {/* Benifites of the course */}
       <div>
