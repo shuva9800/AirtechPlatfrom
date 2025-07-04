@@ -22,11 +22,94 @@ export default function SubSectionModal({
    const { course } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
 
-  useEffect(()=>{
-    if(view || edit){
-      setValue("lectureTitle", modalData.title)
+ useEffect(() => {
+        if(view || edit) {
+            setValue("lectureTitle", modalData.title);
+            setValue("lectureDesc", modalData.description);
+            setValue("lectureVideo", modalData.videoUrl);
+        }
+    },[]);
+
+    const isFormUpdated = () => {
+        const currentValues = getValues();
+        if(currentValues.lectureTitle !== modalData.title ||
+            currentValues.lectureDesc !== modalData.description ||
+            currentValues.lectureVideo !== modalData.videoUrl ) {
+                return true;
+            }
+        else {
+            return false;
+        }
+
     }
-  })
+    const handleEditSubSection = async () => {
+
+        const currentValues = getValues();
+        const formData = new FormData();
+
+        formData.append("sectionId", modalData.sectionId);
+        formData.append("subSectionId", modalData._id);
+
+        if(currentValues.lectureTitle !== modalData.title) {
+            formData.append("title", currentValues.lectureTitle);
+        }
+
+        if(currentValues.lectureDesc !== modalData.description) {
+            formData.append("description", currentValues.lectureDesc);
+        }
+
+        if(currentValues.lectureVideo !== modalData.videoUrl) {
+            formData.append("video", currentValues.lectureVideo);
+        }
+
+        setLoading(true);
+        //API call
+        const result  = await updateSubSection(formData, token);
+        if(result) {
+            //TODO: same check 
+            dispatch(setCourse(result));
+        }
+        setModalData(null);
+        setLoading(false);
+    }
+
+    const onSubmit = async (data) => {
+
+        if(view)
+            return;
+
+        if(edit) {
+            if(!isFormUpdated) {
+                toast.error("No changes made to the form")
+            }
+            else {
+                //edit krdo store me 
+                handleEditSubSection();
+            }
+            return;
+        }
+
+        //ADD
+
+        const formData = new FormData();
+        formData.append("sectionId", modalData);
+        formData.append("title", data.lectureTitle);
+        formData.append("description", data.lectureDesc);
+        formData.append("video", data.lectureVideo);
+        setLoading(true);
+        //API CALL
+        const result = await createSubSection(formData, token);
+
+        if(result) {
+            //TODO: check for updation
+            dispatch(setCourse(result))
+        }
+        setModalData(null);
+        setLoading(false);
+
+    }
+
+
 
   return (
     <div>
