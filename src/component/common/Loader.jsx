@@ -1,5 +1,5 @@
 import React from 'react'
-import {CSSProperties } from "react";
+// import {CSSProperties } from "react";
 import { ClimbingBoxLoader } from "react-spinners";
 
 // const override: CSSProperties = {

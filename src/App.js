@@ -98,7 +98,7 @@ function App() {
           <Route path="dashboard/my-profile" element={<MyProfile />} />
           <Route path="dashboard/settings" element={<Setting />} />
 
-          {user?.accountType == ACCOUNT_TYPE.STUDENT && (
+          {user?.accountType === ACCOUNT_TYPE.STUDENT && (
             <>
               <Route path="dashboard/cart" element={<Cart />} />
               <Route
@@ -108,7 +108,7 @@ function App() {
             </>
           )}
 
-          {user?.accountType == ACCOUNT_TYPE.INSTRUCTOR && (
+          {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
             <>
               <Route path="dashboard/add-course" element={<Course />} />
             </>

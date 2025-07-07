@@ -128,6 +128,8 @@ export default function CourseInformationForm() {
         formData.append("category", data.courseCategory);
         formData.append("instructions", JSON.stringify(data.courseRequirements));
         formData.append("status", COURSE_STATUS.DRAFT);
+        formData.append("thumbnailImage", data.courseImage)
+        formData.append("tag", data.courseTags)
         setLoading(true);
         console.log("printing form data", formData)
         const result = await addCourseDetails(formData, token)
