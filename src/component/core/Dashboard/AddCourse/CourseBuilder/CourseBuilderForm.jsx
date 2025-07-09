@@ -19,6 +19,7 @@ import NestedViewv from "./NestedViewv";
 export default function CourseBuilderForm() {
   const [editSectionName, setEditSectionName] = useState(null);
   const { course } = useSelector((state) => state.course);
+  console.log("all course are",course)
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,7 @@ export default function CourseBuilderForm() {
     } else {
       result = await createSection(
         {
-          sectionname: data.sectionName,
+          sectionName: data.sectionName,
           courseId: course._id,
         },
         token

@@ -11,7 +11,6 @@ export default function RequirementFild({
   const [requirement, setRequirement] = useState("");
   const [requirementList, setRequirementList] = useState([]);
 
-  console.log("requirement List ", requirementList);
   useEffect(() => {
     register(name, { required: true, validate: (value) => value.length > 0 });
   }, []);

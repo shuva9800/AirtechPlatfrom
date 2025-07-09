@@ -24,7 +24,7 @@ export default function CourseInformationForm() {
   } = useForm();
 
   const dispatch = useDispatch();
-  const { course, editCourse } = useSelector((state) => state.course);
+  const { course, editCourse,step } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [courseCatagories, setCourseCatagories] = useState([]);
@@ -132,14 +132,14 @@ export default function CourseInformationForm() {
         formData.append("tag", data.courseTags)
         setLoading(true);
         console.log("printing form data", formData)
-        const result = await addCourseDetails(formData, token)
+        const result = await addCourseDetails(formData, token);
+        console.log("printing data of course create result", result)
         if(result){
           dispatch(setStep(2));
-          dispatch(setCourse(result))
+          dispatch(setCourse(result));
         }
         setLoading(false);
-        // console.log("printing form data", formData)
-        console.log("printing form data", result)
+  
 
   };
 
