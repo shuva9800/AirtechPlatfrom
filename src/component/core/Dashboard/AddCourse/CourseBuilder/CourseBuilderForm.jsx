@@ -19,7 +19,7 @@ import NestedViewv from "./NestedViewv";
 export default function CourseBuilderForm() {
   const [editSectionName, setEditSectionName] = useState(null);
   const { course } = useSelector((state) => state.course);
-  console.log("all course are",course)
+  console.log(" course content is",course.courseContent)
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ export default function CourseBuilderForm() {
         token
       );
     }
+    console.log("courseContent result is", result)
     //update values
     if (result) {
       dispatch(setCourse(result));
