@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { COURSE_STATUS } from "../../../../../utils/constants";
 import ChipInput from "./ChipInput";
 import Upload from "../Upload";
+import { MdNavigateNext } from "react-icons/md";
 export default function CourseInformationForm() {
   const {
     register,
@@ -24,11 +25,10 @@ export default function CourseInformationForm() {
   } = useForm();
 
   const dispatch = useDispatch();
-  const { course, editCourse,step } = useSelector((state) => state.course);
+  const { course, editCourse, step } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const [courseCatagories, setCourseCatagories] = useState([]);
-
 
   useEffect(() => {
     const getCatagories = async () => {
@@ -122,33 +122,32 @@ export default function CourseInformationForm() {
     //create a new course
     const formData = new FormData();
     formData.append("courseName", data.courseTitle);
-        formData.append("courseDescription", data.courseShortDesc);
-        formData.append("price", data.coursePrice);
-        formData.append("whatYouWillLearn", data.courseBenefits);
-        formData.append("category", data.courseCategory);
-        formData.append("instructions", JSON.stringify(data.courseRequirements));
-        formData.append("status", COURSE_STATUS.DRAFT);
-        formData.append("thumbnailImage", data.courseImage)
-        formData.append("tag", data.courseTags)
-        setLoading(true);
-        console.log("printing form data", formData)
-        const result = await addCourseDetails(formData, token);
-        console.log("printing data of course create result", result)
-        if(result){
-          dispatch(setStep(2));
-          dispatch(setCourse(result));
-        }
-        setLoading(false);
-  
-
+    formData.append("courseDescription", data.courseShortDesc);
+    formData.append("price", data.coursePrice);
+    formData.append("whatYouWillLearn", data.courseBenefits);
+    formData.append("category", data.courseCategory);
+    formData.append("instructions", JSON.stringify(data.courseRequirements));
+    formData.append("status", COURSE_STATUS.DRAFT);
+    formData.append("thumbnailImage", data.courseImage);
+    formData.append("tag", data.courseTags);
+    setLoading(true);
+    console.log("printing form data", formData);
+    const result = await addCourseDetails(formData, token);
+    console.log("printing data of course create result", result);
+    if (result) {
+      dispatch(setStep(2));
+      dispatch(setCourse(result));
+    }
+    setLoading(false);
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="rounded-md border-richblack-700 bg-richblue-800 p-6 spage-y-6"
+      className="space-y-8 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-6"
     >
-      <div>
+      {/* Course Title */}
+      <div className="text-sm text-richblack-5">
         <label htmlFor="courseTitle">
           Course Title <sup className="text-pink-200">*</sup>
         </label>
@@ -157,42 +156,62 @@ export default function CourseInformationForm() {
           id="courseTitle"
           placeholder="Enter Course Title"
           {...register("courseTitle", { required: true })}
-          className="w-full"
+          className="form-style w-full"
         />
-        {errors.courseTitle && <span>Course Title is required**</span>}
+        {errors.courseTitle && (
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            Course Title is required**
+          </span>
+        )}
       </div>
-      <div>
-        <label htmlFor="courseShortDesc">
+      {/* Course Short Description */}
+      <div className="flex flex-col space-y-2">
+        <label htmlFor="courseShortDesc" className="text-sm text-richblack-5">
           Course Short Description<sup className="text-pink-200">*</sup>
         </label>
         <textarea
           id="courseShortDesc"
           placeholder="Enter Description"
           {...register("courseShortDesc", { required: true })}
-          className="min-h-[130px] w-full"
+          className="min-h-[130px] w-full resize-x-none form-style"
         />
         {errors.courseShortDesc && (
-          <span>Course Description is required**</span>
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            Course Description is required**
+          </span>
         )}
       </div>
-
-      <div className="relative">
-        <label htmlFor="coursePrice">
+      {/* Course Price */}
+      <div className="flex flex-col space-y-2">
+        <label htmlFor="coursePrice" className="text-sm text-richblack-5">
           Course Title <sup className="text-pink-200">*</sup>
         </label>
-        <input
-          type="text"
-          id="coursePrice"
-          placeholder="Enter Price"
-          {...register("coursePrice", { required: true, valueAsNumber: true })}
-          className="w-full bg-richblack-700 "
-        />
-        <span className="bg-transparent absolute top-7 left-[10px]">
-          <HiOutlineCurrencyRupee />
-        </span>
-        {errors.courseTitle && <span>Course Price is required**</span>}
+        <div className="relative">
+          <input
+            type="text"
+            id="coursePrice"
+            placeholder="Enter Price"
+            {...register("coursePrice", {
+              required: true,
+              valueAsNumber: true,
+              pattern: {
+                value: /^(0|[1-9]\d*)(\.\d+)?$/,
+              },
+            })}
+            className="w-full bg-richblack-700 form-style"
+          />
+          <span className="absolute left-3 top-1/2 inline-block -translate-y-1/2 text-2xl text-richblack-400">
+            <HiOutlineCurrencyRupee />
+          </span>
+        </div>
+        {errors.courseTitle && (
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            Course Price is required**
+          </span>
+        )}
       </div>
-      <div>
+      {/* Course Category */}
+      <div className="flex flex-col space-y-2">
         <label htmlFor="courseCategory">
           Catagory<sup className="text-pink-200">*</sup>
         </label>
@@ -201,7 +220,7 @@ export default function CourseInformationForm() {
           id="courseCategory"
           defaultValue=""
           {...register("courseCategory", { required: true })}
-          className="bg-richblue-600"
+          className="form-style w-full"
         >
           <option value="" disabled>
             Chose a Catagory
@@ -214,9 +233,14 @@ export default function CourseInformationForm() {
             ))}
         </select>
 
-        {errors.courseCategory && <span>Course Catagory is Required**</span>}
+        {errors.courseCategory && (
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            Course Catagory is Required**
+          </span>
+        )}
       </div>
       {/* ///create  a custom component for handlaing tags input */}
+      {/* Course Tags */}
       <ChipInput
         label="Tags"
         name="courseTags"
@@ -238,22 +262,25 @@ export default function CourseInformationForm() {
         editData={editCourse ? course?.thumbnail : null}
       />
 
-
       {/* Benifites of the course */}
-      <div>
-        <label>
+      <div className="flex flex-col space-y-2">
+        <label lassName="text-sm text-richblack-5" htmlFor="courseBenefits">
           Benefits of the course <sup className="text-pink-200">*</sup>
         </label>
         <textarea
           id="courseBenefits"
           placeholder="Enter Benefits of the course"
           {...register("courseBenefits", { required: true })}
-          className="min-h-[130px] w-full"
+          className="min-h-[130px] w-full form-style resize-x-none "
         />
         {errors.courseBenefits && (
-          <span> Benefits of the Course are Required**</span>
+          <span className="ml-2 text-xs tracking-wide text-pink-200">
+            {" "}
+            Benefits of the Course are Required**
+          </span>
         )}
       </div>
+      {/* Requirements/Instructions */}
 
       <RequirementFild
         name="courseRequirements"
@@ -263,6 +290,7 @@ export default function CourseInformationForm() {
         setValue={setValue}
         getValues={getValues}
       />
+      {/* Next Button */}
       <div>
         {editCourse && (
           <button
@@ -272,7 +300,12 @@ export default function CourseInformationForm() {
             Continue Without Saving
           </button>
         )}
-        <IconBtn text={!editCourse ? "Next" : "Save Changes"} />
+        <IconBtn
+          disabled={loading}
+          text={!editCourse ? "Next" : "Save Changes"}
+        >
+          <MdNavigateNext />
+        </IconBtn>
       </div>
     </form>
   );

@@ -53,11 +53,13 @@ export default function NestedViewv({ handelChangeSectionName }) {
                 <p>{section?.sectionName}</p>
               </div>
               <div className="flex items-center gap-x-3">
-                <button
-                  onClick={handelChangeSectionName(
+                <button type="button"
+                  onClick={()=>{
+                    handelChangeSectionName(
                     section._id,
                     section.sectionName
-                  )}
+                  )
+                  }}
                 >
                   <MdModeEdit />
                 </button>

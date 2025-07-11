@@ -31,18 +31,18 @@ export default function RequirementFild({
     setRequirementList(updatedRequirementList);
   };
   return (
-    <div>
-      <label htmlFor={name}>
+    <div className="flex flex-col space-y-2">
+      <label htmlFor={name} className="text-sm text-richblack-5">
         {label}
         <sup className="text-pink-200"> *</sup>
       </label>
-      <div>
+      <div className="flex flex-col items-start space-y-2">
         <input
           type="text"
           id={name}
           value={requirement}
           onChange={(e) => setRequirement(e.target.value)}
-          className="w-full bg-richblack-600"
+          className="w-full form-style"
         />
         <button
           type="button"
@@ -55,11 +55,11 @@ export default function RequirementFild({
       {requirementList.length > 0 && (
         <ul>
           {requirementList.map((item, index) => (
-            <li key={index} className="flex text-richblack-500 gap-3">
+            <li key={index} className="flex text-richblack-5 gap-3 items-center">
               <span>{item}</span>
               <button
                 type="button"
-                className="text-richblack-600 text-xs"
+                className="ml-2 text-xs text-pure-greys-300 "
                 onClick={() => handelRemoveRequirement(index)}
               >
                 Clear
@@ -68,7 +68,7 @@ export default function RequirementFild({
           ))}
         </ul>
       )}
-      {errors[name] && <span>{label} is required</span>}
+      {errors[name] && <span className="ml-2 text-xs tracking-wide text-pink-200">{label} is required</span>}
     </div>
   );
 }
