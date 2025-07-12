@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-style {
+  @apply w-full px-4 py-2 border border-richblack-600 rounded-md bg-richblack-800 text-white placeholder:text-richblack-400;
+}
+.label-style {
+  @apply text-sm font-medium text-white mb-1 block;
+}

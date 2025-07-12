@@ -4,11 +4,11 @@ import ContactUsForm from '../../ContactPage/ContactUsForm'
 export default function ContactFormSection() {
   return (
     <div className='w-6/12 mx-auto'>
-        <h1>Get in Touch</h1>
-        <p>
+        <h1 className='text-center text-4xl font-semibold'>Get in Touch</h1>
+        <p className='text-center text-richblack-300 mt-3'>
             We’d love to here for you, Please fill out this form.
         </p>
-        <div>
+        <div className='mt-12 mx-auto'>
             <ContactUsForm/>
         </div>
     </div>

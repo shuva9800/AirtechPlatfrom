@@ -27,7 +27,6 @@ export default function ContactUsForm() {
           Authorisation: `Bearer ${token}`,
         }
       );
-      // const response = {status:"OK"};
       console.log("Logging response", response);
       setLoading(false);
     } catch (error) {
@@ -49,7 +48,7 @@ export default function ContactUsForm() {
   }, [reset, isSubmitSuccessful]);
 
   return (
-    <form onSubmit={handleSubmit(submitContactForm)} className="flex flex-col gap-7">
+    <form onSubmit={handleSubmit(submitContactForm)} className="flex  gap-7">
       <div className="flex flex-col gap-5 lg:flex-row">
         <div className="flex flex-col gap-2 lg:w-[48%]">
           {/* firstName */}
@@ -65,7 +64,7 @@ export default function ContactUsForm() {
             />
             {errors.firstname && (
               <span className="mt-1 text-[12px] text-yellow-100">
-                Enter Your First Name
+               Please enter your name.
               </span>
             )}
           </div>
@@ -102,9 +101,9 @@ export default function ContactUsForm() {
 
         {/* phoneNumber */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="phoneNumber">Phone Number</label>
+          <label htmlFor="phoneNumber" className="label-style">Phone Number</label>
 
-          <div className="flex flex-row gap-1">
+          <div className="flex flex-row gap-2">
             {/* dropdown */}
 
             <select

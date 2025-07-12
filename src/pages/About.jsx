@@ -74,11 +74,11 @@ export default function About() {
           </div>
 
           {/* div of vision and mission */}
-          <div className="flex pt-12">
+          <div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-between">
             {/* Left box */}
-            <div>
-              <h1> Our Vision</h1>
-              <p>
+            <div className="my-24 flex lg:w-[40%] flex-col gap-10">
+              <h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] "> Our Vision</h1>
+              <p className="text-base font-medium text-richblack-300 lg:w-[95%]">
                 With this vision in mind, we set out on a journey to create an
                 e-learning platform that would revolutionize the way people
                 learn. Our team of dedicated experts worked tirelessly to
@@ -89,9 +89,9 @@ export default function About() {
             </div>
 
             {/* Right box */}
-            <div>
-              <h1>Our Miission</h1>
-              <p>
+            <div className="my-24 flex lg:w-[40%] flex-col gap-10">
+              <h1 className="bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text text-4xl font-semibold lg:w-[70%] ">Our Miission</h1>
+              <p className="text-base font-medium text-richblack-300 lg:w-[70%]">
                 our mission goes beyond just delivering courses online. We
                 wanted to create a vibrant community of learners, where
                 individuals can connect, collaborate, and learn from one
@@ -115,12 +115,12 @@ export default function About() {
         {/* Section 4  Contact us Form*/}
         
 {/* ??? */}
-        <section className= "relative mx-auto w-11/12 mt-20 flex flex-col items-center justify-between gap-8 bg-richblack-900 max-w-maxContent text-white" >
+        <section className= " mx-auto w-11/12 mt-20 flex flex-col items-center justify-between gap-8 bg-richblack-900 max-w-maxContent text-white" >
           <ContactFormSection/>
         </section>
 
         {/* Section 5 for Review section pending*/}
-        <div className= "relative mx-auto w-11/12 my-20 flex flex-col items-center justify-between gap-8 bg-richblack-900 max-w-maxContent text-white">
+        <div className= "relative mx-auto w-11/12 my-20 flex flex-col items-center justify-between gap-8 bg-richblack-900 max-w-maxContent text-white ">
           <h1 className="font-semibold text-4xl text-center mt-8">Reviews from other learners</h1>
         </div>
 

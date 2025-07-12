@@ -198,7 +198,7 @@ export default function CourseInformationForm() {
                 value: /^(0|[1-9]\d*)(\.\d+)?$/,
               },
             })}
-            className="w-full bg-richblack-700 form-style"
+            className="w-full bg-richblack-700 form-style placeholder:ml-10"
           />
           <span className="absolute left-3 top-1/2 inline-block -translate-y-1/2 text-2xl text-richblack-400">
             <HiOutlineCurrencyRupee />
