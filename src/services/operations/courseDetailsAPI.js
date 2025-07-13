@@ -185,7 +185,9 @@ export const updateSection = async (data, token) => {
       throw new Error("Could Not Update Section")
     }
     toast.success("Course Section Updated")
-    result = response?.data?.data
+    result = response?.data?.currentCourse
+    console.log("UPDATE SECTION API RESPONSE#####............", result)
+    
   } catch (error) {
     console.log("UPDATE SECTION API ERROR............", error)
     toast.error(error.message)
@@ -207,7 +209,9 @@ export const updateSubSection = async (data, token) => {
       throw new Error("Could Not Update Lecture")
     }
     toast.success("Lecture Updated")
-    result = response?.data?.data
+    
+    result = response?.data?.data;
+    console.log("update subSection##", result)
   } catch (error) {
     console.log("UPDATE SUB-SECTION API ERROR............", error)
     toast.error(error.message)
@@ -221,7 +225,7 @@ export const deleteSection = async (data, token) => {
   let result = null
   const toastId = toast.loading("Loading...")
   try {
-    const response = await apiConnector("POST", DELETE_SECTION_API, data, {
+    const response = await apiConnector("DELETE", DELETE_SECTION_API, data, {
       Authorisation: `Bearer ${token}`,
     })
     console.log("DELETE SECTION API RESPONSE............", response)
@@ -229,7 +233,7 @@ export const deleteSection = async (data, token) => {
       throw new Error("Could Not Delete Section")
     }
     toast.success("Course Section Deleted")
-    result = response?.data?.data
+    result = response?.data?.updatedCourse
   } catch (error) {
     console.log("DELETE SECTION API ERROR............", error)
     toast.error(error.message)

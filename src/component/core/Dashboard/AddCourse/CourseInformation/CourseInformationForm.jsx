@@ -184,7 +184,7 @@ export default function CourseInformationForm() {
       {/* Course Price */}
       <div className="flex flex-col space-y-2">
         <label htmlFor="coursePrice" className="text-sm text-richblack-5">
-          Course Title <sup className="text-pink-200">*</sup>
+          Course Price <sup className="text-pink-200">*</sup>
         </label>
         <div className="relative">
           <input

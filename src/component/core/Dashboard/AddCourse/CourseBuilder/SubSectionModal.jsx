@@ -68,6 +68,7 @@ export default function SubSectionModal({
     }
     setLoading(true);
     const result = await updateSubSection(formData, token);
+    console.log("update subSection##", result)
     if (result) {
       //check some extra
       dispatch(setCourse(result));
