@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 export default function SubSectionModal({
   modalData,
   setModalData,
-  add = false,
+  add = true,
   view = false,
   edit = false,
 }) {
@@ -35,6 +35,7 @@ export default function SubSectionModal({
       setValue("lectureTitle", modalData.title);
       setValue("lectureDesc", modalData.description);
       setValue("lectureVideo", modalData.videoUrl);
+      setValue("timeDuration", modalData.timeduration);
     }
   }, []);
 
@@ -43,7 +44,8 @@ export default function SubSectionModal({
     if (
       currentValues.lectureTitle !== modalData.title ||
       currentValues.lectureDesc !== modalData.description ||
-      currentValues.lectureVideo !== modalData.videoUrl
+      currentValues.lectureVideo !== modalData.videoUrl ||
+      currentValues.timeDuration !== modalData.timeduration 
     ) {
       return true;
     } else {
@@ -65,6 +67,9 @@ export default function SubSectionModal({
     }
     if (currentValues.lectureVideo !== modalData.videoUrl) {
       formData.append("video", currentValues.lectureVideo);
+    }
+    if (currentValues.timeDuration !== modalData.timeduration) {
+      formData.append("video", currentValues.timeDuration);
     }
     setLoading(true);
     const result = await updateSubSection(formData, token);
@@ -93,11 +98,13 @@ export default function SubSectionModal({
     const formData = new FormData();
     formData.append("sectionId", modalData);
     formData.append("title", data.lectureTitle);
+    formData.append("timeduration", data.timeDuration);
     formData.append("description", data.lectureDesc);
-    formData.append("video", data.lectureVideo);
+    formData.append("videoFile", data.lectureVideo);
     setLoading(true);
     //api call
     const result = await createSubSection(formData, token);
+    console.log("sbsection creation result...",result)
     if (result) {
       //check for updation
       dispatch(setCourse(result));
@@ -128,6 +135,16 @@ export default function SubSectionModal({
             viewData={view ? modalData.videoUrl : null}
             editData={edit ? modalData.videoUrl : null}
           />
+           <div>
+            <label>Time Duration</label>
+            <input
+                id="timeDuration"
+                placeholder="Enter total video time"
+                {...register("timeDuration",{required:true})}
+                className="w-full form-style"
+            />
+            {errors.timeDuration && (<span>Total video time is required</span>)}
+          </div>
           <div>
             <label>Lecture Title</label>
             <input
@@ -139,7 +156,7 @@ export default function SubSectionModal({
             {errors.lectureTitle && (<span>Lecture Title is required</span>)}
           </div>
           <div>
-            <label>Lecture Description</label>
+            <label htmlFor="lectureDesc">Lecture Description</label>
             <textarea
 
             id="lectureDesc"

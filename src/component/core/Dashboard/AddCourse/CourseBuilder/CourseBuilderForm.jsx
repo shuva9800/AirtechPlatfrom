@@ -113,7 +113,7 @@ export default function CourseBuilderForm() {
             id="sectionName"
             placeholder="Add Section Name"
             {...register("sectionName", { required: true })}
-            className="w-full bg-richblack-600 "
+            className="w-full bg-richblack-600 form-style"
           />
           {errors.sectionName && <span>Section Name is Required</span>}
         </div>
