@@ -24,7 +24,8 @@ export default function ContactUsForm() {
         contactusEndpoint.CONTACT_US_API,
         data,
         {
-          Authorisation: `Bearer ${token}`,
+          Authorization
+: `Bearer ${token}`,
         }
       );
       console.log("Logging response", response);
