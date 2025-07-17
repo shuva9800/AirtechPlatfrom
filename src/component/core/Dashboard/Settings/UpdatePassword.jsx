@@ -20,10 +20,12 @@ export default function UpdatePassword() {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    console.log(recentpassword, changerecentpassword);
     const result = await changePassword(token ,formData);
+    console.log(result)
     if(result){
-      setFormdata({})
+       setFormdata({ recentpassword: "", changerecentpassword: "" });
+       setCurrentPassword(false);
+    setChangePassword(false);
     }
   };
 

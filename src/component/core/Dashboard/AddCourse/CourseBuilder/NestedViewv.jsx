@@ -93,9 +93,11 @@ export default function NestedViewv({ handelChangeSectionName }) {
                     <p>{data.title}</p>
                   </div>
 
-                  <div className="flex items-center gap-x-3">
+                  <div
+                  onClick={(e)=>e.stopPropagation()}
+                   className="flex items-center gap-x-3">
                     <button
-                      onCanPlay={() =>
+                      onClick={() =>
                         setEditAddSubsection({
                           ...data,
                           sectionId: section._id,

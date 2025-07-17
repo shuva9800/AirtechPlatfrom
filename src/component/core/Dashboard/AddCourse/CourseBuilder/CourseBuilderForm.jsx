@@ -19,11 +19,10 @@ import NestedViewv from "./NestedViewv";
 export default function CourseBuilderForm() {
   const [editSectionName, setEditSectionName] = useState(null);
   const { course } = useSelector((state) => state.course);
-  console.log(" course content is",course)
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  
+
   const {
     register,
     handleSubmit,
@@ -54,7 +53,6 @@ export default function CourseBuilderForm() {
         token
       );
     }
-    console.log("courseContent result is", result)
     //update values
     if (result) {
       dispatch(setCourse(result));
@@ -62,7 +60,7 @@ export default function CourseBuilderForm() {
       setValue("sectionName", "");
     }
     //loading false
-    setLoading(false)
+    setLoading(false);
   };
 
   //cancel button acction
@@ -91,15 +89,14 @@ export default function CourseBuilderForm() {
   };
 
   //nestedview passing function
-  const handelChangeSectionName = (sectionId , sectionName)=>{
-    if(editSectionName === sectionId){
+  const handelChangeSectionName = (sectionId, sectionName) => {
+    if (editSectionName === sectionId) {
       cancelEdit();
       return;
     }
     setEditSectionName(sectionId);
-    setValue("sectionName" , sectionName)
-
-  }
+    setValue("sectionName", sectionName);
+  };
 
   return (
     <div>
@@ -140,7 +137,9 @@ export default function CourseBuilderForm() {
       </form>
 
       {/* nested view */}
-      {course.courseContent.length > 0 && <NestedViewv  handelChangeSectionName={handelChangeSectionName} />}
+      {course.courseContent.length > 0 && (
+        <NestedViewv handelChangeSectionName={handelChangeSectionName} />
+      )}
       <div className="flex justify-end gap-1">
         <button
           onClick={goBack}

@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form";
 export default function SubSectionModal({
   modalData,
   setModalData,
-  add = true,
+  add = false,
   view = false,
   edit = false,
 }) {
@@ -29,6 +29,7 @@ export default function SubSectionModal({
   const [loading, setLoading] = useState(false);
   const { course } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.auth);
+  console.log("inside Subsection component ", course)
 
   useEffect(() => {
     if (view || edit) {
@@ -41,6 +42,7 @@ export default function SubSectionModal({
 
   const isFormUpdated = () => {
     const currentValues = getValues();
+    console.log("edit button hit******",currentValues)
     if (
       currentValues.lectureTitle !== modalData.title ||
       currentValues.lectureDesc !== modalData.description ||
@@ -56,6 +58,7 @@ export default function SubSectionModal({
   const handelEditSubSection = async () => {
     const currentValues = getValues();
     const formData = new FormData();
+    formData.append("courseId", course._id);
     formData.append("sectionId", modalData.sectionId);
     formData.append("subSectionId", modalData._id);
 
@@ -66,10 +69,10 @@ export default function SubSectionModal({
       formData.append("description", currentValues.lectureDesc);
     }
     if (currentValues.lectureVideo !== modalData.videoUrl) {
-      formData.append("video", currentValues.lectureVideo);
+      formData.append("videoFile", currentValues.lectureVideo);
     }
     if (currentValues.timeDuration !== modalData.timeduration) {
-      formData.append("video", currentValues.timeDuration);
+      formData.append("timeduration", currentValues.timeDuration);
     }
     setLoading(true);
     const result = await updateSubSection(formData, token);
@@ -87,7 +90,9 @@ export default function SubSectionModal({
       return;
     }
     if (edit) {
+      
       if (isFormUpdated) {
+        handelEditSubSection();
         toast.error("No Changes made to the form");
       } else {
         //hit edit function
@@ -96,6 +101,7 @@ export default function SubSectionModal({
       return;
     }
     const formData = new FormData();
+    formData.append("courseId", course._id);
     formData.append("sectionId", modalData);
     formData.append("title", data.lectureTitle);
     formData.append("timeduration", data.timeDuration);
@@ -126,7 +132,7 @@ export default function SubSectionModal({
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Upload
-            name="LectureVideo"
+            name="lectureVideo"
             label="Lecture Video"
             register={register}
             setValue={setValue}
@@ -151,7 +157,7 @@ export default function SubSectionModal({
                 id="lectureTitle"
                 placeholder="Enter Lecture Title"
                 {...register("lectureTitle",{required:true})}
-                className="w-full"
+                className="w-full form-style"
             />
             {errors.lectureTitle && (<span>Lecture Title is required</span>)}
           </div>
@@ -162,7 +168,7 @@ export default function SubSectionModal({
             id="lectureDesc"
             placeholder="Enter Lecture Description"
             {...register("lectureDesc",{required:true})}
-            className="w-full min-h-[130px]"
+            className="w-full min-h-[130px] form-style"
             />
             {errors.lectureDesc && (<span>Lecture Description is required</span>)}
           </div>
@@ -170,7 +176,7 @@ export default function SubSectionModal({
             !view &&(
                 <div>
                     <IconBtn
-                        text1={loading? "Loading" :edit? "Save Changes" : "Save"}
+                        text={loading? "Loading" :edit? "Save Changes" : "Save"}
                     />
                 </div>
             )
