@@ -91,14 +91,12 @@ export default function SubSectionModal({
     }
     if (edit) {
       
-      if (isFormUpdated) {
-        handelEditSubSection();
-        toast.error("No Changes made to the form");
-      } else {
-        //hit edit function
-        handelEditSubSection();
-      }
-      return;
+     if (!isFormUpdated()) {
+    toast.error("No Changes made to the form");
+    return;
+  }
+  await handelEditSubSection();
+  return;
     }
     const formData = new FormData();
     formData.append("courseId", course._id);

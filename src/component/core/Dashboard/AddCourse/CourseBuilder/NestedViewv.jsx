@@ -33,13 +33,13 @@ export default function NestedViewv({ handelChangeSectionName }) {
   };
 
   //delete current Lecture
-  const handelDeleteSubSection = async(subSectionId, sectionId) => {
-    const result = await deleteSubSection({subSectionId,sectionId,token});
+  const handelDeleteSubSection = async(subSectionId, sectionId,courseId) => {
+    const result = await deleteSubSection({subSectionId,sectionId,courseId,token});
     if(result){
       //TODO :need extra  logical operation
       dispatch(setCourse(result))
     }
-    confirmationModal(null)
+    setConfirmationModal(null)
   };
 
   return (
@@ -114,7 +114,7 @@ export default function NestedViewv({ handelChangeSectionName }) {
                           btn1Text: "Delete",
                           btn2Text: "Cancel",
                           btn1Handler: () =>
-                            handelDeleteSubSection(data._id, section._id),
+                            handelDeleteSubSection(data._id, section._id,course._id),
                           btn2Handler: () => setConfirmationModal(null),
                         });
                       }}
