@@ -28,7 +28,7 @@ export default function CoursesTable({ courses, setCourses }) {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <Table>
         <Thead>
           <Tr>
@@ -47,7 +47,7 @@ export default function CoursesTable({ courses, setCourses }) {
             courses.map((course) => (
               <Tr
                 key={course._id}
-                className="flex gap-x-10 border border-richblack-800  "
+                className="flex gap-x-16 border border-richblack-800  w-full"
               >
                 <Td className="flex gap-x-4">
                   <img

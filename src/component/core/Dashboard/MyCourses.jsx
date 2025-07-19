@@ -21,7 +21,7 @@ export default function MyCourses() {
   }, []);
   return (
     <div>
-      <div>
+      <div className="flex justify-between w-full">
         <h1>My Courses</h1>
         <IconBtn
           text="Add Course"
