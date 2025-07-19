@@ -22,6 +22,7 @@ export default function CourseBuilderForm() {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  console.log("current course is",course)
 
   const {
     register,
@@ -74,13 +75,13 @@ export default function CourseBuilderForm() {
   };
 
   //back button action
-  const gotoNext = () => {
+  const goToNext = () => {
     if (course.courseContent.length === 0) {
       toast.error("Please add atlast one Section");
       return;
     }
     if (
-      course.courseContent.some((section) => section.subSection.length === 0)
+      course.courseContent.some((section) => section.subsection.length === 0)
     ) {
       toast.error("Please add atlast one lecture in each section");
       return;
@@ -147,7 +148,7 @@ export default function CourseBuilderForm() {
         >
           Back
         </button>
-        <IconBtn text="next" onClick={gotoNext}>
+        <IconBtn disabled={loading} text="Next" onClick={goToNext}>
           <GrLinkNext />
         </IconBtn>
       </div>
