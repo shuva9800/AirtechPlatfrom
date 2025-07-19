@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router();
 
 //import course related handler function from controller
-const{courseCreate, editCourse,getAllCourses, getSpecificCourse, getInstractorCourses} = require("../controllers/coursehandler");
+const{courseCreate, editCourse,getAllCourses, getSpecificCourse, getInstractorCourses,deleteCourse} = require("../controllers/coursehandler");
 //catagory handler function
 const{catagoryCreation,showAllCatagory,catagoryPageDetails}= require("../controllers/catagoryhandler");
 //section handler function
@@ -17,6 +17,8 @@ const{checkAuthentication,student,admin,instractor} = require("../middleware/aut
 
 //map handeler function with path
 router.post("/createCourse",checkAuthentication,instractor,courseCreate );
+//detele course 
+router.delete("/deleteCourse", checkAuthentication,instractor,deleteCourse)
 router.post("/addSection", checkAuthentication,instractor,sectionCreate );
 router.put("/updateSection", checkAuthentication,instractor,updateSection );
 router.delete("/deleteSection", checkAuthentication,instractor,deleteSection );

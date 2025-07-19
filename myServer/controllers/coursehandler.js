@@ -1,6 +1,8 @@
 const Course = require("../models/courses");
 const Category = require("../models/catagory");
 const User = require("../models/user");
+const Section = require("../models/section");
+const SubSection = require("../models/subsection")
 const { imageUploadToCloudinary } = require("../utility/imageUpload");
 require("dotenv").config();
 
@@ -222,16 +224,16 @@ exports.getAllCourses = async (req, res) => {
 exports.getSpecificCourse = async (req, res) => {
   try {
     //fetch datamean course id
-    const { courseid } = req.body;
+    const { courseId } = req.body;
     //validation
-    if (!courseid) {
+    if (!courseId) {
       return res.status(400).json({
         success: false,
         message: "course is not found",
       });
     }
     const courseDetails = await Course
-      .findById({ _id: courseid })
+      .findById({ _id: courseId })
       .populate({
         path: "instractor",
         populate: {
@@ -295,5 +297,58 @@ exports.getInstractorCourses = async (req,res)=>{
       success: false,
       message: "error occure while fetch instractor all courses",
     });
+  }
+}
+
+// Delete the Course
+exports.deleteCourse = async (req, res) => {
+  console.log(req.body)
+  try {
+    const { courseId } = req.body
+
+    // Find the course
+    const course = await Course.findById(courseId)
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" })
+    }
+
+    // Unenroll students from the course
+    const studentsEnrolled = course.studentEnroll
+    for (const studentId of studentsEnrolled) {
+      await User.findByIdAndUpdate(studentId, {
+        $pull: { courses: courseId },
+      })
+    }
+
+    // Delete sections and sub-sections
+    const courseSections = course.courseContent
+    for (const sectionId of courseSections) {
+      // Delete sub-sections of the section
+      const section = await Section.findById(sectionId)
+      if (section) {
+        const subSections = section.subsection
+        for (const subSectionId of subSections) {
+          await SubSection.findByIdAndDelete(subSectionId)
+        }
+      }
+
+      // Delete the section
+      await Section.findByIdAndDelete(sectionId)
+    }
+
+    // Delete the course
+    await Course.findByIdAndDelete(courseId)
+
+    return res.status(200).json({
+      success: true,
+      message: "Course deleted successfully",
+    })
+  } catch (error) {
+    console.error(error)
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    })
   }
 }

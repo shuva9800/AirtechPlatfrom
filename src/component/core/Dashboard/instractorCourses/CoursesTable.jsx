@@ -9,18 +9,21 @@ import {
   fetchInstructorCourses,
 } from "../../../../services/operations/courseDetailsAPI";
 import { setCourse } from "../../../../app/slicess/courseSlice";
+import { useNavigate } from "react-router-dom";
 export default function CoursesTable({ courses, setCourses }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(null);
   const [confirmationModal, setConfirmationModal] = useState(null);
   const handelCourseDelete = async (courseId) => {
+    console.log("delete course hit")
     setLoading(true);
     await deleteCourse({ courseId: courseId }, token);
     const result = await fetchInstructorCourses(token);
     if (result) {
       //slice purpose
-      dispatch(setCourses(result));
+      // dispatch(setCourses(result));
       setCourses(result);
     }
     setConfirmationModal(null);
@@ -31,7 +34,7 @@ export default function CoursesTable({ courses, setCourses }) {
     <div className="w-full">
       <Table>
         <Thead>
-          <Tr>
+          <Tr className="flex gap-x-16 border justify-around border-richblack-800  w-full">
             <Th>Courses</Th>
             <Th>Duration</Th>
             <Th>Price</Th>
@@ -47,7 +50,7 @@ export default function CoursesTable({ courses, setCourses }) {
             courses.map((course) => (
               <Tr
                 key={course._id}
-                className="flex gap-x-16 border border-richblack-800  w-full"
+                className="flex gap-x-20 border border-richblack-800  w-full"
               >
                 <Td className="flex gap-x-4">
                   <img
@@ -70,12 +73,12 @@ export default function CoursesTable({ courses, setCourses }) {
                   {/* {course.duration} */}
                 </Td>
                 <Td>${course.price}</Td>
-                <Td>
+                <Td className="flex gap-x-5">
                   <button
                     disabled={loading}
-                    // onClick={()=>{
-                    //     navigate
-                    // }}
+                    onClick={()=>{
+                        navigate(`/dashboard/edit-course/${course._id}`)
+                    }}
                   >
                     EDIT
                   </button>
@@ -88,22 +91,20 @@ export default function CoursesTable({ courses, setCourses }) {
                           "All the data releted to this course will be deleted",
                         btn1Text: "Delete",
                         btn2Text: "Cancel",
-                        btn1Handler: !loading
-                          ? () => handelCourseDelete(course._id)
-                          : () => {},
-                        btn2Handler: !loading
-                          ? () => setConfirmationModal(null)
-                          : () => {},
+                        // btn1Handler: () => handelCourseDelete(course._id),
+                        btn1Handler: () => handelCourseDelete(course._id),
+                        btn2Handler:() => setConfirmationModal(null)
+                          
                       });
                     }}
-                  ></button>
+                  >Delete</button>
                 </Td>
               </Tr>
             ))
           )}
         </Tbody>
       </Table>
-      {confirmationModal && <ConfirmationModal modatData={confirmationModal} />}
+      {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </div>
   );
 }

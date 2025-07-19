@@ -5,11 +5,13 @@ import IconBtn from "../../../../common/IconBtn";
 import { resetCourseState, setEditCourse, setStep } from "../../../../../app/slicess/courseSlice";
 import { COURSE_STATUS } from "../../../../../utils/constants";
 import { editCourseDetails } from "../../../../../services/operations/courseDetailsAPI";
+import { useNavigate } from "react-router-dom";
 
 
 export default function PublishCourse() {
   const { register, handleSubmit, setValue, getValues } = useForm();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.auth);
   const { course } = useSelector((state) => state.course);
   const [loading, setLoading] = useState(false);
@@ -24,8 +26,10 @@ export default function PublishCourse() {
     dispatch(setEditCourse(true));
   };
   const goToCourses = ()=>{
+    console.log("gotoCourses function hit")
     dispatch(resetCourseState);
-    //navigate("/dashboard/my-courses")
+    
+    navigate("/dashboard/my-courses")
   }
 
   const handelCoursePublish = async () => {

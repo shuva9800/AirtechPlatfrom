@@ -22,6 +22,7 @@ import { ACCOUNT_TYPE } from "./utils/constants";
 import Setting from "./component/core/Dashboard/Settings/Setting";
 import Course from "./component/core/Dashboard/AddCourse/Course";
 import MyCourses from "./component/core/Dashboard/MyCourses";
+import EditCurrentCourse from "./component/core/Dashboard/EditCourse/EditCurrentCourse";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -113,6 +114,7 @@ function App() {
             <>
               <Route path="dashboard/add-course" element={<Course />} />
               <Route path="dashboard/my-courses" element={<MyCourses />} />
+              <Route path="dashboard/edit-course/:courseId" element={<EditCurrentCourse />} />
             </>
           )}
         </Route>

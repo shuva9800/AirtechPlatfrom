@@ -14,7 +14,7 @@ export default function ConfirmationModal({modalData}) {
             </p>
     <div className="flex items-center gap-x-4">
         <IconBtn
-            onclick={modalData?.btn1Handler}
+            onClick={modalData?.btn1Handler}
             text={modalData?.btn1Text}
         />
         <button className="cursor-pointer rounded-md bg-richblack-200 py-[8px] px-[20px] font-semibold text-richblack-900"
