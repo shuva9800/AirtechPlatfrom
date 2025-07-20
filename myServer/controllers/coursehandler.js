@@ -195,7 +195,6 @@ exports.editCourse = async (req, res) => {
 };
 
 //Get All Coures Liist
-
 exports.getAllCourses = async (req, res) => {
   try {
     const allCourses = await Course.find({}).populate("courseContent");
