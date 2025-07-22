@@ -39,7 +39,6 @@ router.post("/catagoryCreation",checkAuthentication,admin,catagoryCreation );
 //get specific catagory details
 router.post("/catagoryPageDetails",catagoryPageDetails );
 //gaet all catagory details
-
 router.get("/showAllCategories" , showAllCatagory ); 
 
 //student only fielld because rating and review only giv student

@@ -60,6 +60,7 @@ exports.showAllCatagory = async (req, res) => {
 // Get specific catagory page details
 // top 10 catagory function pending
 exports.catagoryPageDetails = async (req, res) => {
+  console.log("course id", req.body)
   try {
     //get catagory id
     const { catagoryId } = req.body;
