@@ -34,7 +34,10 @@ export default function Catalog() {
         console.log(error);
       }
     };
-    getCatagoryDetails();
+    if(catagoryId){
+        getCatagoryDetails();
+    }
+    
   }, [catagoryId]);
 
   return (

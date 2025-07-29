@@ -24,6 +24,7 @@ import Course from "./component/core/Dashboard/AddCourse/Course";
 import MyCourses from "./component/core/Dashboard/MyCourses";
 import EditCurrentCourse from "./component/core/Dashboard/EditCourse/EditCurrentCourse";
 import Catalog from "./pages/Catalog";
+import CourseDetailPage from "./pages/CourseDetailPage";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="catalog/:catalogName" element={<Catalog />} />
+        <Route path="courses/:courseId" element={<CourseDetailPage />} />
         <Route
           path="/Signup"
           element={
