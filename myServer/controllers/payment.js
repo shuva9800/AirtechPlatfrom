@@ -2,67 +2,62 @@ const { instance } = require("../config/razorpay");
 const User = require("../models/user");
 const Course = require("../models/courses");
 const mailSendeToUser = require("../utility/mailSender");
-const {courseEnrollmentEmail} = require("../mail/templates/courseEnrollmentEmail");
+const {
+  courseEnrollmentEmail,
+} = require("../mail/templates/courseEnrollmentEmail");
 
 //order creation for payment -->when we click in the buy button
 
 exports.capturePayment = async (req, res) => {
+  const { courses } = req.body;
   try {
-    //user id and course id fetch
-    const { CourseId } = req.body;
     const userId = req.findPerson.id;
-    //validation
-    if (!CourseId) {
-      return res.satus(400).json({
+    if (courses.length === 0) {
+      return res.status(200).json({
         success: false,
-        message: "please provide valid CourseId",
+        message: "please provide Course id",
       });
     }
-    //valid course id or not
-    let courseDetails;
-    try {
-      courseDetails = await Course.findById(CourseId);
-      if (!validCourse) {
-        return res.status(400).json({
+    let totalAmount = 0;
+    for (const course_id of courses) {
+      let course;
+      try {
+        course = await Course.findById(course_id);
+        if (!course) {
+          return res.status(404).json({
+            success: false,
+            message: "course not found",
+          });
+        }
+        //if user already bye this course
+        const uid = new mongoose.Types.ObjectId(userId);
+        if (course.studentEnroll.includes(uid)) {
+          return res.status(200).json({
+            success: false,
+            message: "Already you are enroll of this course",
+          });
+        }
+        totalAmount += course.price;
+      } catch (error) {
+        console.log(error);
+        return res.status(500).json({
           success: false,
-          message: "could not find the course",
+          error: error.message,
+          message: "occure error while user and course details fetching",
         });
       }
-      //user already payed for this course or not
-      const uid = new mongoose.Type.ObjectId(userId);
-      if (Course.studentEnroll.includes(uid)) {
-        return res.status(400).json({
-          success: false,
-          message: "user is already buy this course no need to buy again",
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        success: false,
-        error: error.message,
-        message: "occure error while user and course details fetching",
-      });
     }
 
-    // order create
-    const amount = courseDetails.price;
-    currency = "INR";
-
-    //create option
+    //Order create
     const options = {
-      amount: amount * 100,
-      currency,
-      recipt: Math.random(Date.now()).toString(),
-      notes: {
-        user: userId,
-        course: CourseId,
-      },
+      amount: totalAmount * 100,
+      currency: "INR",
+      receipt: Math.random(Date.now()).toString(),
     };
     try {
       //initiate the payment using razorpay
       const paymentResponse = await instance.orders.create(options);
-      console.log(paymentResponse);
+      console.log("Payment response", paymentResponse);
     } catch (error) {
       console.log(error);
       return res.status(400).json({
@@ -71,7 +66,9 @@ exports.capturePayment = async (req, res) => {
         message: "could not initiate order",
       });
     }
-    //return response
+
+
+       //return response
     return res.satus(200).json({
       success: true,
       message: "order initiate successfully",
@@ -82,7 +79,11 @@ exports.capturePayment = async (req, res) => {
       currency: paymentResponse.currency,
       amount: paymentResponse.amount,
     });
-  } catch (error) {
+  } 
+  
+
+  
+  catch (error) {
     console.log(error);
     return res.status(400).json({
       success: false,
@@ -91,6 +92,92 @@ exports.capturePayment = async (req, res) => {
     });
   }
 };
+
+// exports.capturePayment = async (req, res) => {
+//   try {
+//     //user id and course id fetch
+//     const { CourseId } = req.body;
+//     const userId = req.findPerson.id;
+//     //validation
+//     if (!CourseId) {
+//       return res.satus(400).json({
+//         success: false,
+//         message: "please provide valid CourseId",
+//       });
+//     }
+//     //valid course id or not
+//     let courseDetails;
+//     try {
+//       courseDetails = await Course.findById(CourseId);
+//       if (!validCourse) {
+//         return res.status(400).json({
+//           success: false,
+//           message: "could not find the course",
+//         });
+//       }
+//       //user already payed for this course or not
+//       const uid = new mongoose.Type.ObjectId(userId);
+//       if (Course.studentEnroll.includes(uid)) {
+//         return res.status(400).json({
+//           success: false,
+//           message: "user is already buy this course no need to buy again",
+//         });
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(500).json({
+//         success: false,
+//         error: error.message,
+//         message: "occure error while user and course details fetching",
+//       });
+//     }
+
+//     // order create
+//     const amount = courseDetails.price;
+//     currency = "INR";
+
+//     //create option
+//     const options = {
+//       amount: amount * 100,
+//       currency,
+//       recipt: Math.random(Date.now()).toString(),
+//       notes: {
+//         user: userId,
+//         course: CourseId,
+//       },
+//     };
+//     try {
+//       //initiate the payment using razorpay
+//       const paymentResponse = await instance.orders.create(options);
+//       console.log(paymentResponse);
+//     } catch (error) {
+//       console.log(error);
+//       return res.status(400).json({
+//         success: false,
+//         error: error.message,
+//         message: "could not initiate order",
+//       });
+//     }
+//     //return response
+//     return res.satus(200).json({
+//       success: true,
+//       message: "order initiate successfully",
+//       courseName: courseDetails.courseName,
+//       courseDescription: courseDetails.courseDescription,
+//       thumbnil: courseDetails.thumbnil,
+//       orderId: paymentResponse.id,
+//       currency: paymentResponse.currency,
+//       amount: paymentResponse.amount,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(400).json({
+//       success: false,
+//       error: error.message,
+//       message: "capture payment failed",
+//     });
+//   }
+// };
 
 //verify signature
 
