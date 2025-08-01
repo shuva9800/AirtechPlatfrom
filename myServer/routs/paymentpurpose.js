@@ -9,7 +9,7 @@ const {checkAuthentication,student } = require("../middleware/authorize");
 
 //map handler function with route
 router.post("/capturepayment",checkAuthentication,student, capturePayment );
-router.post("/verifysignature", verifySignature);
+router.post("/verifysignature",checkAuthentication,student, verifySignature);
 
 //exports route
 module.exports = router;
