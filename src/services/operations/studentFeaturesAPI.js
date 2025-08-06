@@ -1,8 +1,9 @@
 import toast from "react-hot-toast";
 import rzpLogo from "../../assets/Logo/rzp_logo.png"
-import apiConnector from "../apiconnector"
-
-const { studentEndpoints } = require("../api");
+import {apiConnector} from "../apiconnector";
+import {resetCart} from "../../app/slicess/cartSlice"
+import {setPaymentLoading} from "../../app/slicess/courseSlice"
+import { studentEndpoints } from "../api"
 
 
 
@@ -113,7 +114,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
         if(!response.data.success) {
             throw new Error(response.data.message);
         }
-        toast.success("payment Successful, ypou are addded to the course");
+        toast.success("payment Successful, you are addded to the course");
         navigate("/dashboard/enrolled-courses");
         dispatch(resetCart());
     }   
