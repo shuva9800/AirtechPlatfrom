@@ -2,10 +2,11 @@ const { instance } = require("../config/razorpay");
 const User = require("../models/user");
 const Course = require("../models/courses");
 const { default: mongoose } = require("mongoose");
-const mailSendeToUser = require("../utility/mailSender");
+const mailSender = require("../utility/mailSender");
 const {
   courseEnrollmentEmail,
 } = require("../mail/templates/courseEnrollmentEmail");
+const crypto = require("crypto");
 
 //order creation for payment -->when we click in the buy button
 
@@ -95,7 +96,7 @@ exports.verifySignature = async (req, res) => {
   }
   let body = razorpay_order_id + "|" + razorpay_payment_id;
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_SECRET)
+    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
     .update(body.toString())
     .digest("hex");
 
@@ -145,7 +146,7 @@ const enrollStudents = async (courses, userId, res) => {
       );
 
       ///bachhe ko mail send kardo
-      const emailResponse = await mailSendeToUser(
+      const emailResponse = await mailSender(
         enrollStudents.email,
         `Successfully Enrolled into ${enrolledCourse.courseName}`,
         courseEnrollmentEmail(
@@ -165,6 +166,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
   const { orderId, paymentId, amount } = req.body;
 
   const userId = req.findPerson.id;
+  console.log("sendpaymentSuccessful", userId)
 
   if (!orderId || !paymentId || !amount || !userId) {
     return res
@@ -175,7 +177,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
   try {
     //student ko dhundo
     const enrolledStudent = await User.findById(userId);
-    await mailSendeToUser(
+    await mailSender(
       enrolledStudent.email,
       `Payment Recieved`,
       paymentSuccessEmail(
