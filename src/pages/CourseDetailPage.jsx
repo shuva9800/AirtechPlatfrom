@@ -7,6 +7,7 @@ import GetAvgRating from "../utils/avgRating";
 import Loader from "../component/common/Loader"
 import Error from "./Error"
 import ConfirmationModal from "../component/common/ConfirmationModal";
+import RatingStars from "../component/common/RatingStars"
 
 export default function CourseDetailPage() {
   const { courseId } = useParams();
@@ -18,12 +19,14 @@ export default function CourseDetailPage() {
 
   //fetch clicked course details
   const [courseData, setCourseData] = useState(null);
+ 
   const [confirmationModal, setConfirmationModal] = useState(null);
   useEffect(() => {
     const getCourseDetails = async () => {
       try {
         const result = await fetchCourseDetails(courseId);
         setCourseData(result);
+       
       } catch (error) {
         console.log("Could not fetch course details");
       }
@@ -42,9 +45,10 @@ export default function CourseDetailPage() {
 
   //total lecture
   const [totalNoOfLectures, setTotalNoOfLectures] = useState(0);
+  console.log(totalNoOfLectures)
   useEffect(()=>{
     let lectures =0;
-    response?.data?.CourseDetails?.courseContent?.forEach((sec)=>{
+    courseData?.CourseDetails?.courseContent?.forEach((sec)=>{
       lectures += sec.subSection.length || 0
     })
     setTotalNoOfLectures(lectures)
@@ -78,16 +82,40 @@ if(loading || !courseData){
     </div>
   )
 }
-if(!courseData.success){
+if(!courseData){
   return(
     <div>
       <Error/>
     </div>
   )
 }
+const {
+        _id: course_id,
+        courseName,
+        courseDescription,
+        thumbnail,
+        price,
+        whatYouWillLearn,
+        courseContent,
+        ratingandreview,
+        instructor,
+        studentEnroll,
+        createdAt,
+    } = courseData;
 
   return (
+    <div className="flex flex-col items-center">
+    <p>{courseName}</p>
+    <p>{courseDescription}</p>
     <div>
+      <span>{avgReviewCount}</span>
+      <RatingStars Review_Count={avgReviewCount} Star_Size={24}/>
+      <span>{`${ratingandreview.length} reviews`}</span>
+      <span>{`(${studentEnroll.length} student enrolled)`}</span>
+    </div>
+
+
+
       <p>Wellcome guys</p>
       <div>
         Your course id is :-<span>{courseId}</span>
