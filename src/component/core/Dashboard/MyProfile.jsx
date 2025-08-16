@@ -27,7 +27,7 @@ export default function MyProfile() {
         </div>
         <IconBtn
            text="Edit"
-          onclick={() => {
+          onClick={() => {
             navigate("/dashboard/settings");
           }}>
           <RiEditBoxLine />
@@ -41,8 +41,8 @@ export default function MyProfile() {
           <p className="text-lg font-semibold text-richblack-5">About</p>
           <IconBtn
             text="Edit"
-            onclick={() => {
-              navigate("/dashboard/setting");
+            onClick={() => {
+              navigate("/dashboard/settings");
             }}
         >
           <RiEditBoxLine />
@@ -59,8 +59,8 @@ export default function MyProfile() {
           <p className="text-lg text-richblack-5 font-semibold">Persional Details</p>
           <IconBtn
             text="Edit"
-            onclick={() => {
-              navigate("/dashboard/setting");
+            onClick={() => {
+              navigate("/dashboard/settings");
             }}
             >
               <RiEditBoxLine />

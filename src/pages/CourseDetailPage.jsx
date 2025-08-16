@@ -46,7 +46,6 @@ export default function CourseDetailPage() {
 
   //total lecture
   const [totalNoOfLectures, setTotalNoOfLectures] = useState(0);
-  console.log(totalNoOfLectures);
   useEffect(() => {
     let lectures = 0;
     courseData?.CourseDetails?.courseContent?.forEach((sec) => {
@@ -54,6 +53,16 @@ export default function CourseDetailPage() {
     });
     setTotalNoOfLectures(lectures);
   }, [courseData]);
+
+  //Collaps all section
+  const [isActive ,setIsActive] = useState(Array(0));
+  const handelActive = (id)=>{
+    setIsActive(
+      !isActive.includes(id)?
+      isActive.concat(id)
+      :isActive.filter((item)=> item !== id)
+    )
+  }
 
   //buy course
   const handelBuyCourse = (courseId) => {
@@ -118,27 +127,39 @@ export default function CourseDetailPage() {
         </div>
       </div>
 
-        <div>
-          <CourseDetailsCard
+      <div>
+        <CourseDetailsCard
           course={courseData}
           setConfirmationModal={setConfirmationModal}
-          handelBuyCourse ={handelBuyCourse}
-           />
-        </div>
-
-
-
-
-      {/* <p>Wellcome guys</p>
-      <div>
-        Your course id is :-<span>{courseId}</span>
+          handelBuyCourse={handelBuyCourse}
+        />
       </div>
-      <button
-        className="bg-yellow-50 p-6 mt-10"
-        onClick={() => handelBuyCourse(courseId)}
-      >
-        Buy Now
-      </button> */}
+
+      {/* What you will learn section */}
+      <div>
+        <p>What Yopu Will Learn</p>
+        <div>{whatYouWillLearn}</div>
+      </div>
+      {/* Course Content Page */}
+      <div>
+        <div>
+          <p>Course Content</p>
+        </div>
+        <div className="flex gap-x-1 justify-between">
+          <div>
+            <span>{courseContent.length} Sectio(s)</span>
+
+            <span> {totalNoOfLectures} lectures</span>
+            <span>{courseData.data?.totalDuration}</span>
+          </div>
+          <div>
+            <button 
+            onClick={()=> setIsActive([])}>
+              Collaps all sections
+            </button>
+          </div>
+        </div>
+      </div>
 
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
     </div>

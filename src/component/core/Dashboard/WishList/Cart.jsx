@@ -6,13 +6,13 @@ import RenderTotalAmount from './RenderTotalAmount'
 export default function Cart() {
     const {total,totalItems} =useSelector((state)=>state.cart)
   return (
-    <div>
-        <h1>Your Cart</h1>
-        <p>{totalItems} Courses in Cart</p>
+    <div className=' '>
+        <h1 className='text-richblack-5 font-medium text-[26px] '>My Wishlist </h1>
+        <p className='font-semibold text-richblack-400'>{totalItems} Courses in Wishlist</p>
         {
             total >0 
             ? (
-                <div>
+                <div className='flex  justify-between'>
                     <RenderCartCourses/>
                     <RenderTotalAmount/>
                 </div>

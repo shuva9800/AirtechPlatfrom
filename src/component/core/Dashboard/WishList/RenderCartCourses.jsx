@@ -11,12 +11,12 @@ export const RenderCartCourses = () => {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   return (
-    <div>
+    <div className="w-full">
       {cart.map((course, index) => (
-        <div>
-          <div>
+        <div className="flex flex-row gap-x-4 w-[100%]">
+          <div className="flex ">
             <img src={course?.thumbnil} alt="thumbnil"/>
-            <div>
+            <div className="flex flex-col gap-y-2">
               <p> {course?.courseName}</p>
               <p>{course?.catagory?.name} </p>
               <div>
@@ -36,13 +36,15 @@ export const RenderCartCourses = () => {
             </div>
           </div>
           {/* button and price cart */}
-          <div>
+          <div className="flex flex-col gap-y-4 ">
             {/* removeFromCart function to be written and import */}
-            <button onClick={() => dispatch(removeFromCart(course._id))}>
-              <RiDeleteBin5Line />
-              <span>Remove</span>
+            <button onClick={() => dispatch(removeFromCart(course._id))}
+            className="flex gap-2 items-center bg-richblack-800 rounded-sm"
+            >
+              <RiDeleteBin5Line className="text-pink-200" />
+              <span className="text-pink-200 text-md">Remove</span>
             </button>
-            <p>
+            <p className="text-yellow-50 font-semibold text-[32px]">
               Rs
               {course.price}
             </p>
