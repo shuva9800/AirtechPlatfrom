@@ -47,21 +47,21 @@ const handelShare = ()=>{
     
 
   return (
-    <div className='flex flex-col'>
+    <div className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}>
         <img src={thumbnil} alt='Thumbnil'
-            className='max-h-[300px] min-h-[180px] w-[400px] rounded-xl object-contain'
+            className='max-h-[300px] min-h-[180px] w-[400px] overflow-hidden rounded-2xl object-fill md:max-w-full'
         />
-        <div>
+        <div className='space-x-3 pb-4 text-3xl font-semibold'>
             Rs.{price}
         </div>
-        <div className='flex flex-col gap-y-6 '>
+        <div className='flex flex-col gap-y-4'>
             {/* <button>
               {
                   user && course?.studentEnroll.includes(user._id)?"Go to Course" :"Bye Now"
               }
             </button> */}
             <button
-            className='bg-yellow-50 p-2 rounded-md w-fit text-richblack-900' 
+            className=' p-2.5 rounded-md  text-richblack-25 bg-richblack-800' 
             onClick={
               user && user.courses.includes(course._id)
               ? ()=> navigate("/dashboard/enrolled-courses")
@@ -74,7 +74,7 @@ const handelShare = ()=>{
            {
             (!user.courses.includes(course._id)) && (
               <button 
-              className='bg-yellow-50 p-x-2 p-y-2 rounded-md w-fit' 
+              className='bg-yellow-50 p-2 rounded-md  text-richblack-900' 
               onClick={handelAddToCart}
               >
                 Add To Cart
@@ -83,13 +83,13 @@ const handelShare = ()=>{
            }
         </div>
         <div>
-          <p>
+          <p className='pb-3 pt-6 text-center text-sm text-richblack-25'>
             30-Day Money-Back Guarantee
           </p>
-          <p>
+          <p className={`my-2 text-xl font-semibold `}>
             This Course Includes:
           </p>
-          <div className='flex flex-col gap-y'>
+          <div className="flex flex-col gap-3 text-sm text-caribbeangreen-100">
            {
             course.instructions.map((item, index)=>(
               <p key={index} className='flex gap-x-2 items-center text-caribbeangreen-400'>

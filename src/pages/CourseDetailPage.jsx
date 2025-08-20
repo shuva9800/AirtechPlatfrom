@@ -6,10 +6,15 @@ import { fetchCourseDetails } from "../services/operations/courseDetailsAPI";
 import GetAvgRating from "../utils/avgRating";
 import Loader from "../component/common/Loader";
 import Error from "./Error";
+import { BiInfoCircle } from "react-icons/bi";
+import { HiOutlineGlobeAlt } from "react-icons/hi";
+import ReactMarkdown from "react-markdown";
 import ConfirmationModal from "../component/common/ConfirmationModal";
 import RatingStars from "../component/common/RatingStars";
 import { formatDate } from "../services/formatDate";
 import CourseDetailsCard from "../component/core/Course/CourseDetailsCard";
+import Footer from "../component/common/Footer"
+import CourseAccordionBar from "../component/core/Course/CourseAccordionBar";
 
 export default function CourseDetailPage() {
   const { courseId } = useParams();
@@ -21,6 +26,7 @@ export default function CourseDetailPage() {
 
   //fetch clicked course details
   const [courseData, setCourseData] = useState(null);
+  console.log("##########",courseData)
 
   const [confirmationModal, setConfirmationModal] = useState(null);
   useEffect(() => {
@@ -55,14 +61,14 @@ export default function CourseDetailPage() {
   }, [courseData]);
 
   //Collaps all section
-  const [isActive ,setIsActive] = useState(Array(0));
-  const handelActive = (id)=>{
+  const [isActive, setIsActive] = useState(Array(0));
+  const handleActive = (id) => {
     setIsActive(
-      !isActive.includes(id)?
-      isActive.concat(id)
-      :isActive.filter((item)=> item !== id)
-    )
-  }
+      !isActive.includes(id)
+        ? isActive.concat(id)
+        : isActive.filter((item) => item !== id)
+    );
+  };
 
   //buy course
   const handelBuyCourse = (courseId) => {
@@ -103,65 +109,151 @@ export default function CourseDetailPage() {
     whatYouWillLearn,
     courseContent,
     ratingandreview,
-    instructor,
+    instractor,
     studentEnroll,
     createdAt,
   } = courseData;
 
   return (
-    <div className="flex flex-col">
-      <div className="relative flex flex-col justify-start p-8">
-        <p>{courseName}</p>
-        <p>{courseDescription}</p>
-        <div className="flex gap-x-1">
-          <span>{avgReviewCount}</span>
-          <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
-          <span>{`(${ratingandreview.length} reviews)`}</span>
-          <span>{`(${studentEnroll.length} student enrolled)`}</span>
-        </div>
+    <>
+      <div className={`relative w-full bg-richblack-800`}>
+        {/* Hero section */}
+        <div className="mx-auto box-content px-4 lg:w-[1260px] 2xl:relative ">
+          <div className="mx-auto grid min-h-[450px] max-w-maxContentTab justify-items-center py-8 lg:mx-0 lg:justify-items-start lg:py-0 xl:max-w-[810px]">
+            <div className="relative block max-h-[30rem] lg:hidden">
+              <div className="absolute bottom-0 left-0 h-full w-full shadow-[#161D29_0px_-64px_36px_-28px_inset]"></div>
+              <img
+                src={thumbnail}
+                alt="course thumbnail"
+                className="aspect-auto w-full"
+              />
+            </div>
 
-        <div>{/* <p>Created By {`${instructor.firstName}`}</p> */}</div>
-        <div className="flex gap-x-3">
-          <p>Created At {formatDate(createdAt)}</p>
-          <p> English</p>
-        </div>
-      </div>
-
-      <div>
-        <CourseDetailsCard
-          course={courseData}
-          setConfirmationModal={setConfirmationModal}
-          handelBuyCourse={handelBuyCourse}
-        />
-      </div>
-
-      {/* What you will learn section */}
-      <div>
-        <p>What Yopu Will Learn</p>
-        <div>{whatYouWillLearn}</div>
-      </div>
-      {/* Course Content Page */}
-      <div>
-        <div>
-          <p>Course Content</p>
-        </div>
-        <div className="flex gap-x-1 justify-between">
-          <div>
-            <span>{courseContent.length} Sectio(s)</span>
-
-            <span> {totalNoOfLectures} lectures</span>
-            <span>{courseData.data?.totalDuration}</span>
+            <div
+              className={`z-30 my-5 flex flex-col justify-center gap-4 py-5 text-lg text-richblack-5`}
+            >
+              <div>
+                <p className="text-4xl font-bold text-richblack-5 sm:text-[42px]">
+                  {courseName}
+                </p>
+              </div>
+              <p className="text-richblack-200">{courseDescription}</p>
+              <div className="text-md flex flex-wrap items-center gap-2">
+                <span className="text-yellow-25">{avgReviewCount}</span>
+                <RatingStars Review_Count={avgReviewCount} Star_Size={24} />
+                <span>{`(${ratingandreview.length} reviews)`}</span>
+                <span>{`${studentEnroll.length} students enrolled`}</span>
+              </div>
+              <div>
+                <p className="">
+                  Created By {`${instractor.firstName} ${instractor.lastName}`}
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-5 text-lg">
+                <p className="flex items-center gap-2">
+                  {" "}
+                  <BiInfoCircle /> Created at {formatDate(createdAt)}
+                </p>
+                <p className="flex items-center gap-2">
+                  {" "}
+                  <HiOutlineGlobeAlt /> English
+                </p>
+              </div>
+            </div>
+            <div className="flex w-full flex-col gap-4 border-y border-y-richblack-500 py-4 lg:hidden">
+              <p className="space-x-3 pb-4 text-3xl font-semibold text-richblack-5">
+                Rs. {price}
+              </p>
+              <button className="yellowButton" onClick={handelBuyCourse}>
+                Buy Now
+              </button>
+              <button className="blackButton">Add to Cart</button>
+            </div>
           </div>
-          <div>
-            <button 
-            onClick={()=> setIsActive([])}>
-              Collaps all sections
-            </button>
+          {/* CourseDetailsCard */}
+          <div className="right-[1rem] top-[60px] mx-auto hidden min-h-[600px] w-1/3 max-w-[410px] translate-y-24 md:translate-y-0 lg:absolute  lg:block">
+            <CourseDetailsCard
+              course={courseData}
+              setConfirmationModal={setConfirmationModal}
+              handelBuyCourse={handelBuyCourse}
+            />
           </div>
         </div>
       </div>
 
+      <div className="mx-auto box-content px-4 text-start text-richblack-5 lg:w-[1260px]">
+        <div className="mx-auto max-w-maxContentTab lg:mx-0 xl:max-w-[810px]">
+          {/* What will you learn section */}
+          <div className="my-8 border border-richblack-600 p-8">
+            <p className="text-3xl font-semibold">What you'll learn</p>
+            <div className="mt-5">
+              <ReactMarkdown>{whatYouWillLearn}</ReactMarkdown>
+            </div>
+          </div>
+          {/* Course Content Section */}
+          <div className="max-w-[830px]">
+            <div className="flex flex-col gap-3">
+              <p className="text-[28px] font-semibold">Course Content</p>
+              <div className="flex flex-wrap justify-between gap-2">
+                <div className="flex gap-2">
+                  <span>
+                    {courseContent.length} {`section(s)`}
+                  </span>
+                  <span>
+                    {totalNoOfLectures} {`lecture(s)`}
+                  </span>
+                  {/* <span>{response.data?.totalDuration} total length</span> */}
+                </div>
+                <div>
+                  <button
+                    className="text-yellow-25"
+                    onClick={() => setIsActive([])}
+                  >
+                    Collapse all sections
+                  </button>
+                </div>
+              </div>
+            </div>
+            {/* Course Details Accordion */}
+            <div className="py-4">
+              {courseContent?.map((course, index) => (
+                <CourseAccordionBar
+                  course={course}
+                  key={index}
+                  isActive={isActive}
+                  handleActive={handleActive}
+                />
+              ))}
+            </div>
+            {/* Author Details */}
+            <div className="mb-12 py-4">
+              <p className="text-[28px] font-semibold">Author</p>
+              <div className="flex items-center gap-4 py-4">
+                <img
+                  src={
+                    instractor.image
+                      ? instractor.image
+                      : `https://api.dicebear.com/5.x/initials/svg?seed=${instractor.firstName} ${instractor.lastName}`
+                  }
+                  alt="Author"
+                  className="h-14 w-14 rounded-full object-cover"
+                />
+                <p className="text-lg">{`${instractor.firstName} ${instractor.lastName}`}</p>
+              </div>
+              <p className="text-richblack-50">
+                {instractor?.additionalInfo?.aboute}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <Footer />
       {confirmationModal && <ConfirmationModal modalData={confirmationModal} />}
-    </div>
+    </>
   );
 }
+
+
+
